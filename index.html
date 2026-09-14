@@ -1,87 +1,52 @@
 <!DOCTYPE html>
 <html lang="ko">
  <head>
-   <meta charset="UTF-8">
-   <title>시간표와 미디어</title>
- </head> 
+  <meta charset="UTF-8">
+  <title>예시1 - 레이아웃을 div로 나누기</</title>
+  <style>
+ * { box-sizing: border-box; }
+   body { font-family: sans-serif: margin: 0; }
+
+   .header { background: #4a90e2: color: white; padding: 20px: text-align: center; }
+   .nav    { background: #333: padding: 10px; }
+   .nav a  { color: white: margin: 0 15px: text-decoration: none: }
+   .container { display: flex; }
+   .main   { background: #f4f4f4; padding: 20px; flex: 3; }
+   .sidebar { background: #dcdcdc: padding: 20px: flex: 1; }
+   .footer  { background: #333; color: white; text-align: center; padding: 10px; }
+   </style>
+ </head>
  <body>
 
-   <h1>나의 시간표</h1>
+  <!-- 1. 헤더 영역 -->
+  <div class="header">
+    <h1>내 웹사이트</h1>
+  </div>
 
-   <table border="1">
-     <tr>
-       <th>교시</th>
-       <th>월</th>
-       <th>화</th>
-       <th>수</th>
-      <th>목</th>
-      <th>금</th>
-     </tr>
-     <tr>
-       <td>1</td>
-       <td>국사2</td>
-       <td>진로</td>
-       <td>대수</td>
-      <td>문학</td>
-      <td>국사2</td>
-     </tr>
-     <tr>
-       <td>2</td>
-       <td>문학</td>
-       <td>문학</td>
-       <td>국사2</td>
-      <td>대수</td>
-      <td>중국어</td>
-     </tr>
-    <tr>
-     <td>3</td>
-     <td>스포</td>
-     <td>빅분</td>
-     <td>빅분</td>
-     <td>응화2</td>
-     <td>문학</td>
-    </tr>
-    <tr>
-     <td>4</td>
-     <td>중국어</td>
-     <td>빅분</td>
-     <td>빅분</td>
-     <td>응화2</td>
-     <td>대수</td>
-    </tr>
-    <tr>
-     <td>5</td>
-     <td>응화2</td>
-     <td>사회2</td>
-     <td>스포</td>
-     <td>스포</td>
-     <td>창체</td>
-    </tr>
-     <td>6</td>
-    <td>응화2</td>
-    <td>대수</td>
-    <td>시회2</td>
-    <td>중국어</td>
-    <td>창체</td>
-    <tr>
-     <td>7</td>
-     <td></td>
-     <td>중국어</td>
-     <td></td>
-     <td>사회2</td>
-     <td></td>
-    </tr>
-   </table>
+  <!-- 2. 네비게이션 영역 -->
+  <div class="nav">
+   <a href="#">홈</a>
+   <a href="#">소개</a>
+   <a href="#">연락처</a>
+  </div>
 
-   <h1>동영상</h1>
+  <!-- 3. 본문 + 사이드바를 감싸는 큰 div -->
+  <div class="container">
 
-   <video src="LEMONADE (1).mp4.crdownload" width="400" controls>
-   </video>
+   <!-- 3-1. 본문 영역 -->
+   <div class="main">
+    <h2>본문 내용</h2>
+    <p>이 부분에 주요 글이나 이미지가 들어갑니다.</p>
+   </div>
 
-   <h1>소리</h1>
-
-   <audio src="LEMONADE (1).mp4.crdownload" controls>
-   </audio>
+   <!-- 4. 푸터 영역 -->
+   <div class="footer">
+    <p>&copy; 2026 내 웹사이트</p>
+   </div>
 
  </body>
 </html>
+ 
+   
+  
+ 
