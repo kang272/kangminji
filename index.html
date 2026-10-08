@@ -2,199 +2,289 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>초보자용 날씨 사이트</title>
-  
-  <!-- 12. link : 외부 스타일 또는 폰트 연결 -->
+  <title>전국 날씨 및 정보 웹사이트</title>
+
+  <!-- 12. link : 외부 CSS/폰트 연결 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
   <style>
-    /* 전체 화면 중앙 정렬 */
-    body {
-      /* 1. background-color : 배경색 */
-      background-color: #f0f0f0;
-      /* 6. padding : 안쪽 여백 */
-      padding: 20px;
+    /* 전체 페이지 초기화 */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* 전체 틀 (가로 배치) */
+    body {
+      font-family: 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
+      /* 1. background-color : 전체 배경색 */
+      background-color: #f5f5f5;
+      /* 6. padding : 전체 바깥 안쪽 여백 */
+      padding: 30px 20px;
+      color: #333;
+    }
+
+    /* 전체 틀 (가로 정렬) */
     .container {
-      /* 7. display : flex (좌/우 가로 배치) */
+      /* 7. display : flex (좌측 사이드바와 우측 본문배치) */
       display: flex;
       /* 3. width : 전체 너비 */
-      width: 700px;
-      /* 5. margin : 가운데 정렬 */
+      width: 900px;
+      /* 5. margin : 화면 가운데 정렬 */
       margin: 0 auto;
     }
 
-    /* 2. 사이드메뉴 (id 사용) */
+    /* ----------------------------------
+       2. 사이드메뉴 영역 (id 사용)
+    ---------------------------------- */
     #sidebar {
-      /* 3. width & 4. height : 너비와 높이 */
-      width: 200px;
-      height: 400px;
+      /* 3. width & 4. height */
+      width: 220px;
+      height: 600px;
       /* 1. background-color */
-      background-color: #e0e0e0;
-      /* 2. border : 테두리 */
-      border: 2px solid #888888;
-      /* 6. padding */
-      padding: 10px;
-      /* 5. margin : 오른쪽 여백 */
-      margin-right: 15px;
-    }
-
-    /* 우측 내용 영역 (id 사용) */
-    #content {
-      /* 3. width */
-      width: 485px;
-    }
-
-    /* 1. 메인 (상단 영역) */
-    .top-box {
-      /* 1. background-color */
-      background-color: #ffffff;
+      background-color: #d8d8d8;
       /* 2. border */
-      border: 2px solid #888888;
+      border: 2px solid #a0a0a0;
       /* 6. padding */
-      padding: 10px;
-      /* 5. margin : 아래 여백 */
+      padding: 20px 15px;
+      /* 5. margin */
+      margin-right: 25px;
+    }
+
+    #sidebar h2 {
+      font-size: 18px;
+      text-align: center;
+      /* 5. margin */
+      margin-bottom: 20px;
+      color: #222;
+    }
+
+    /* 사이드메뉴 버튼 스타일 */
+    .menu-ul {
+      list-style: none;
+    }
+
+    .menu-ul li {
+      /* 5. margin */
       margin-bottom: 15px;
     }
 
-    /* 3. 본문 영역 */
-    .main-box {
-      /* 4. height */
-      height: 310px;
+    /* 9. a : 메뉴 링크 */
+    .menu-ul a {
+      /* 7. display : inline-block */
+      display: inline-block;
+      /* 3. width & 4. height */
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      /* 1. background-color */
+      background-color: #4a4a4a;
+      color: #ffffff;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      /* 2. border */
+      border: 1px solid #333333;
+    }
+
+    .menu-ol-title {
+      font-size: 13px;
+      font-weight: bold;
+      /* 5. margin */
+      margin-top: 30px;
+      margin-bottom: 8px;
+    }
+
+    .menu-ol {
+      /* 6. padding */
+      padding-left: 20px;
+      font-size: 14px;
+    }
+
+    .menu-ol li {
+      /* 5. margin */
+      margin-bottom: 5px;
+    }
+
+    /* ----------------------------------
+       우측 전체 컨텐츠 영역 (id 사용)
+    ---------------------------------- */
+    #content-area {
+      /* 3. width */
+      width: 655px;
+      /* 7. display : flex */
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----------------------------------
+       1. 메인 / 4. 내 지역 (상단)
+    ---------------------------------- */
+    .top-main-box {
+      /* 3. width & 4. height */
+      width: 100%;
+      height: 100px;
+      /* 1. background-color */
+      background-color: #d8d8d8;
+      /* 2. border */
+      border: 2px solid #a0a0a0;
+      /* 둥근 모서리 연출 */
+      border-radius: 20px;
+      /* 6. padding */
+      padding: 15px 25px;
+      /* 5. margin */
+      margin-bottom: 20px;
+    }
+
+    .top-main-box h1 {
+      font-size: 20px;
+      /* 5. margin */
+      margin-bottom: 5px;
+    }
+
+    /* 5. span : 특정 텍스트 강조 */
+    .my-region-text {
+      /* 7. display : inline-block */
+      display: inline-block;
+      font-weight: bold;
+      color: #1a56db;
       /* 1. background-color */
       background-color: #ffffff;
       /* 2. border */
-      border: 2px solid #888888;
+      border: 1px solid #1a56db;
       /* 6. padding */
-      padding: 10px;
+      padding: 2px 8px;
     }
 
-    /* 5. inline-block 예시 (강조 글자) */
-    .my-location {
-      /* 7. display : inline-block */
-      display: inline-block;
+    /* ----------------------------------
+       3. 본문영역
+    ---------------------------------- */
+    .main-body-box {
+      position: relative; /* 종이접힘 배치용 */
+      /* 3. width & 4. height */
+      width: 100%;
+      height: 480px;
       /* 1. background-color */
-      background-color: #ffff99;
-      /* 6. padding */
-      padding: 3px;
+      background-color: #a8a8a8;
       /* 2. border */
-      border: 1px solid #ccc;
+      border: 2px solid #787878;
+      /* 6. padding */
+      padding: 20px;
     }
 
-    /* 5. 전국날씨 구성 박스 */
-    .weather-box {
+    /* 5. 전국날씨 구성 (중앙 프레임) */
+    .weather-frame {
       /* 1. background-color */
-      background-color: #dddddd;
-      /* 2. border */
-      border: 1px solid #aaa;
+      background-color: #606060;
+      /* 2. border : 액자같은 입체 테두리 */
+      border: 8px solid #404040;
       /* 6. padding */
-      padding: 10px;
+      padding: 15px;
       /* 5. margin */
-      margin-top: 10px;
+      margin-bottom: 20px;
+      color: #ffffff;
     }
 
-    /* 날씨 이미지 */
+    .weather-frame h3 {
+      font-size: 16px;
+      /* 5. margin */
+      margin-bottom: 10px;
+    }
+
+    /* 날씨 이미지와 표를 가로 정렬 */
+    .weather-content {
+      /* 7. display : flex */
+      display: flex;
+      align-items: center;
+    }
+
+    /* 10. img : 날씨 이미지 */
     .weather-img {
       /* 7. display : inline-block */
       display: inline-block;
       /* 3. width & 4. height */
-      width: 80px;
-      height: 60px;
+      width: 110px;
+      height: 85px;
       /* 2. border */
-      border: 1px solid #666;
+      border: 2px solid #ffffff;
+      /* 5. margin */
+      margin-right: 15px;
     }
 
-    /* 날씨 표 (table) */
+    /* 11. 표 (table) 스타일 */
     .weather-table {
       /* 7. display : inline-block */
       display: inline-block;
-      /* 2. border */
-      border: 1px solid #666;
-      /* 5. margin */
-      margin-left: 10px;
+      border-collapse: collapse;
+      /* 1. background-color */
+      background-color: #ffffff;
+      color: #333;
+      font-size: 13px;
     }
 
-    /* 표 칸 테두리 */
     .weather-table th, .weather-table td {
       /* 2. border */
-      border: 1px solid #666;
+      border: 1px solid #888888;
       /* 6. padding */
-      padding: 3px 8px;
+      padding: 6px 12px;
+      text-align: center;
+    }
+
+    .weather-table th {
+      /* 1. background-color */
+      background-color: #e0e0e0;
+    }
+
+    /* 본문 텍스트 라인 영역 */
+    .article-lines {
+      /* 5. margin */
+      margin-top: 15px;
+    }
+
+    .article-lines p {
+      /* 1. background-color */
+      background-color: #111111;
+      color: #ffffff;
+      /* 6. padding */
+      padding: 6px 12px;
+      /* 5. margin */
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    /* 오른쪽 하단 종이접힘(Page Curl) 효과 연출 */
+    .page-curl {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      /* 3. width & 4. height */
+      width: 0;
+      height: 0;
+      /* 2. border 기법을 통한 삼각형 제작 */
+      border-bottom: 45px solid #f5f5f5; /* 배경색과 동일 */
+      border-left: 45px solid #666666;   /* 접힌 뒷면 색상 */
     }
   </style>
 </head>
 <body>
 
-  <!-- 전체를 감싸는 div (13. class 사용) -->
+  <!-- 전체 레이아웃 (13. class 사용) -->
   <div class="container">
 
     <!-- 2. 사이드메뉴 (14. id 사용) -->
     <div id="sidebar">
-      <!-- 1. h1~h3 (h2 사용) -->
+      <!-- 1. h1~h3 태그 사용 -->
       <h2>2. 사이드메뉴</h2>
 
       <!-- 6. ul : 순서없는 목록 -->
-      <ul>
-        <!-- 8. li & 9. a (링크) -->
-        <li><a href="#">메뉴 1</a></li>
-        <li><a href="#">메뉴 2</a></li>
+      <ul class="menu-ul">
+        <!-- 8. li / 9. a (링크 태그) -->
+        <li><a href="#">메뉴 항목 1</a></li>
+        <li><a href="#">메뉴 항목 2</a></li>
+        <li><a href="#">메뉴 항목 3</a></li>
+        <li><a href="#">메뉴 항목 4</a></li>
       </ul>
 
       <!-- 7. ol : 순서있는 목록 -->
-      <ol>
-        <!-- 8. li -->
-        <li>항목 A</li>
-        <li>항목 B</li>
-      </ol>
-    </div>
-
-    <!-- 우측 영역 (14. id 사용) -->
-    <div id="content">
-
-      <!-- 1. 메인 / 4. 내 지역 -->
-      <div class="top-box">
-        <!-- 1. h1~h3 (h1 사용) -->
-        <h1>1. 메인</h1>
-        <!-- 2. p, 3. br, 5. span 사용 -->
-        <p>
-          내 지역: <span class="my-location">4. 서울</span><br>
-          오늘의 날씨 정보입니다.
-        </p>
-      </div>
-
-      <!-- 3. 본문 영역 -->
-      <div class="main-box">
-        <!-- 1. h1~h3 (h3 사용) -->
-        <h3>3. 본문영역</h3>
-
-        <!-- 5. 전국날씨 구성 -->
-        <div class="weather-box">
-          <p><b>5. 전국날씨 구성</b></p>
-          
-          <!-- 10. img (alt 포함) -->
-          <img src="https://via.placeholder.com/80x60" alt="날씨 그림" class="weather-img">
-
-          <!-- 11. 표 (table, tr, th, td) -->
-          <table class="weather-table">
-            <tr>
-              <th>지역</th>
-              <th>날씨</th>
-            </tr>
-            <tr>
-              <td>서울</td>
-              <td>맑음</td>
-            </tr>
-          </table>
-        </div>
-
-        <p style="margin-top: 15px;">본문 설명 내용입니다.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-</body>
-</html>
+      <p class="menu-ol-title">[주요 카테고리]</p>
+      <ol class="menu-ol">
