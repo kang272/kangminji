@@ -3,10 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>전국 날씨 및 정보 웹사이트</title>
-
-  <!-- 12. link : 외부 CSS/폰트 연결 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
   <style>
     /* 기본 초기화 */
     * {
@@ -16,45 +12,34 @@
     }
 
     body {
-      font-family: 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
-      /* 1. background-color */
+      font-family: '맑은 고딕', sans-serif;
       background-color: #f5f5f5;
-      /* 6. padding : 여백 확대 */
       padding: 40px 20px;
       color: #333;
     }
 
-    /* 전체 틀 (크기를 1200px로 크게 확대) */
+    /* 전체 틀 (크게 확대: 1200px) */
     .container {
-      /* 7. display : flex */
       display: flex;
-      /* 3. width : 전체 가로 크기를 대폭 확대 */
       width: 100%;
       max-width: 1200px;
-      /* 5. margin : 중앙 정렬 */
       margin: 0 auto;
     }
 
-    /* 2. 사이드메뉴 (14. id 사용) */
+    /* 사이드메뉴 */
     #sidebar {
-      /* 3. width & 4. height : 사이드바 가로/세로 확대 */
       width: 280px;
       height: 750px;
       flex-shrink: 0;
-      /* 1. background-color */
       background-color: #d8d8d8;
-      /* 2. border */
       border: 3px solid #a0a0a0;
-      /* 6. padding */
       padding: 25px 15px;
-      /* 5. margin */
       margin-right: 25px;
     }
 
     #sidebar h2 {
       font-size: 22px;
       text-align: center;
-      /* 5. margin */
       margin-bottom: 25px;
       color: #111;
     }
@@ -64,24 +49,138 @@
     }
 
     .menu-ul li {
-      /* 5. margin */
       margin-bottom: 15px;
     }
 
-    /* 9. a (링크 태그) */
     .menu-ul a {
-      /* 7. display : inline-block */
       display: inline-block;
-      /* 3. width & 4. height : 버튼 크기 확대 */
       width: 100%;
       height: 55px;
       line-height: 55px;
-      /* 1. background-color */
       background-color: #4a4a4a;
       color: #ffffff;
       text-decoration: none;
       text-align: center;
       font-weight: bold;
       font-size: 16px;
-      /* 2. border */
-      border
+      border: 2px solid #333333;
+    }
+
+    .menu-ol-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 35px;
+      margin-bottom: 12px;
+    }
+
+    .menu-ol {
+      padding-left: 25px;
+      font-size: 15px;
+    }
+
+    .menu-ol li {
+      margin-bottom: 10px;
+    }
+
+    /* 우측 전체 컨텐츠 영역 */
+    #content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* 상단 박스 (메인 / 내 지역) */
+    .top-main-box {
+      width: 100%;
+      height: 120px;
+      background-color: #d8d8d8;
+      border: 3px solid #a0a0a0;
+      border-radius: 20px;
+      padding: 20px 30px;
+      margin-bottom: 25px;
+    }
+
+    .top-main-box h1 {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .top-main-box p {
+      font-size: 16px;
+    }
+
+    .my-region-text {
+      display: inline-block;
+      font-weight: bold;
+      color: #111111;
+      background-color: #ffffff;
+      border: 2px solid #333333;
+      padding: 2px 10px;
+    }
+
+    /* 본문 영역 */
+    .main-body-box {
+      position: relative;
+      width: 100%;
+      height: 605px;
+      background-color: #a8a8a8;
+      border: 3px solid #787878;
+      padding: 25px;
+    }
+
+    /* 전국날씨 프레임 */
+    .weather-frame {
+      background-color: #606060;
+      border: 8px solid #404040;
+      padding: 20px;
+      margin-bottom: 25px;
+      color: #ffffff;
+    }
+
+    .weather-frame h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+    }
+
+    .weather-content {
+      display: flex;
+      align-items: center;
+    }
+
+    /* 외부 링크 없이 직접 그리는 고화질 날씨 지도 그래픽 상자 */
+    .weather-img-box {
+      display: inline-block;
+      width: 250px;
+      height: 160px;
+      background-color: #1b2a47;
+      border: 3px solid #ffffff;
+      margin-right: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+    }
+
+    .weather-img-box svg {
+      width: 70px;
+      height: 70px;
+      fill: #ffcc00;
+      margin-bottom: 10px;
+    }
+
+    .weather-img-box span {
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    /* 표 (table) */
+    .weather-table {
+      display: inline-block;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      color: #333;
+      font-size: 15px;
+      flex: 1;
+    }
