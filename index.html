@@ -3,12 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>전국 날씨 및 정보 웹사이트</title>
-
-  <!-- 12. link : 외부 CSS/폰트 연결 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
   <style>
-    /* 전체 페이지 초기화 */
+    /* 기본 초기화 */
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,31 +12,30 @@
     }
 
     body {
-      font-family: 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
-      /* 1. background-color : 전체 배경색 */
+      font-family: '맑은 고딕', sans-serif;
+      /* 1. background-color */
       background-color: #f5f5f5;
-      /* 6. padding : 전체 바깥 안쪽 여백 */
+      /* 6. padding */
       padding: 20px;
       color: #333;
     }
 
-    /* 전체 틀 (가로 정렬 & 유동적 너비) */
+    /* 전체 틀 (7. display: flex) */
     .container {
-      /* 7. display : flex (좌측 사이드바와 우측 본문배치) */
       display: flex;
-      /* 3. width : 유동적 너비 설정 */
+      /* 3. width */
       width: 100%;
-      max-width: 900px;
-      /* 5. margin : 화면 가운데 정렬 */
+      max-width: 850px;
+      /* 5. margin */
       margin: 0 auto;
     }
 
-    /* 2. 사이드메뉴 영역 (id 사용) */
+    /* 2. 사이드메뉴 (14. id 사용) */
     #sidebar {
       /* 3. width & 4. height */
       width: 200px;
+      height: 550px;
       flex-shrink: 0;
-      height: 580px;
       /* 1. background-color */
       background-color: #d8d8d8;
       /* 2. border */
@@ -54,9 +49,7 @@
     #sidebar h2 {
       font-size: 16px;
       text-align: center;
-      /* 5. margin */
       margin-bottom: 15px;
-      color: #222;
     }
 
     .menu-ul {
@@ -64,15 +57,13 @@
     }
 
     .menu-ul li {
-      /* 5. margin */
       margin-bottom: 10px;
     }
 
-    /* 9. a : 메뉴 링크 */
+    /* 9. a (링크 태그) */
     .menu-ul a {
-      /* 7. display : inline-block */
+      /* 7. display: inline-block */
       display: inline-block;
-      /* 3. width & 4. height */
       width: 100%;
       height: 40px;
       line-height: 40px;
@@ -84,40 +75,34 @@
       font-weight: bold;
       font-size: 13px;
       /* 2. border */
-      border: 1px solid #333333;
+      border: 1px solid #333;
     }
 
     .menu-ol-title {
       font-size: 12px;
       font-weight: bold;
-      /* 5. margin */
       margin-top: 20px;
       margin-bottom: 8px;
     }
 
     .menu-ol {
-      /* 6. padding */
       padding-left: 20px;
       font-size: 13px;
     }
 
     .menu-ol li {
-      /* 5. margin */
       margin-bottom: 6px;
     }
 
-    /* 우측 전체 컨텐츠 영역 (id 사용) */
+    /* 우측 내용 전체 (14. id 사용) */
     #content-area {
-      /* 3. width */
       flex: 1;
-      /* 7. display : flex */
       display: flex;
       flex-direction: column;
     }
 
     /* 1. 메인 / 4. 내 지역 (상단) */
     .top-main-box {
-      /* 3. width & 4. height */
       width: 100%;
       height: 90px;
       /* 1. background-color */
@@ -130,3 +115,205 @@
       /* 5. margin */
       margin-bottom: 15px;
     }
+
+    .top-main-box h1 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+
+    /* 5. span : 특정 글자 강조 */
+    .my-region-text {
+      /* 7. display: inline-block */
+      display: inline-block;
+      font-weight: bold;
+      color: #333333;
+      background-color: #ffffff;
+      border: 1px solid #333333;
+      padding: 1px 6px;
+    }
+
+    /* 3. 본문영역 */
+    .main-body-box {
+      position: relative;
+      width: 100%;
+      height: 445px;
+      /* 1. background-color */
+      background-color: #a8a8a8;
+      /* 2. border */
+      border: 2px solid #787878;
+      /* 6. padding */
+      padding: 15px;
+    }
+
+    /* 5. 전국날씨 구성 (액자 형태) */
+    .weather-frame {
+      background-color: #606060;
+      border: 5px solid #404040;
+      padding: 12px;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .weather-frame h3 {
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .weather-content {
+      display: flex;
+      align-items: center;
+    }
+
+    /* 10. img(alt) 포함 이미지 상자 */
+    .weather-img {
+      /* 7. display: inline-block */
+      display: inline-block;
+      /* 3. width & 4. height */
+      width: 100px;
+      height: 75px;
+      /* 2. border */
+      border: 2px solid #ffffff;
+      margin-right: 12px;
+    }
+
+    /* 11. 표 (table) */
+    .weather-table {
+      display: inline-block;
+      border-collapse: collapse;
+      background-color: #ffffff;
+      color: #333;
+      font-size: 12px;
+    }
+
+    .weather-table th, .weather-table td {
+      border: 1px solid #888888;
+      padding: 4px 10px;
+      text-align: center;
+    }
+
+    .weather-table th {
+      background-color: #e0e0e0;
+    }
+
+    /* 본문 텍스트 영역 */
+    .article-lines {
+      margin-top: 10px;
+    }
+
+    .article-lines p {
+      background-color: #111111;
+      color: #ffffff;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      font-size: 12px;
+    }
+
+    /* 종이접힘 효과 */
+    .page-curl {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border-bottom: 40px solid #f5f5f5;
+      border-left: 40px solid #666666;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 전체 레이아웃 (13. class 사용) -->
+  <div class="container">
+
+    <!-- 2. 사이드메뉴 (14. id 사용) -->
+    <div id="sidebar">
+      <!-- 1. h1~h3 (h2) -->
+      <h2>2. 사이드메뉴</h2>
+
+      <!-- 6. ul : 순서없는 목록 -->
+      <ul class="menu-ul">
+        <!-- 8. li / 9. a (링크) -->
+        <li><a href="#">실시간 날씨</a></li>
+        <li><a href="#">주간 일기예보</a></li>
+        <li><a href="#">미세먼지 정보</a></li>
+        <li><a href="#">태풍/기상특보</a></li>
+      </ul>
+
+      <!-- 7. ol : 순서있는 목록 -->
+      <p class="menu-ol-title">[인기 검색 지역]</p>
+      <ol class="menu-ol">
+        <!-- 8. li -->
+        <li>경기도 오산시</li>
+        <li>서울특별시</li>
+        <li>부산광역시</li>
+        <li>제주특별자치도</li>
+      </ol>
+    </div>
+
+    <!-- 오른쪽 영역 (14. id 사용) -->
+    <div id="content-area">
+
+      <!-- 1. 메인 / 4. 내 지역 -->
+      <div class="top-main-box">
+        <!-- 1. h1~h3 (h1) -->
+        <h1>1. 메인</h1>
+        <!-- 2. p / 3. br / 5. span -->
+        <p>
+          4. 내 지역: <span class="my-region-text">경기도 오산시</span><br>
+          오늘의 날씨 상태는 대체로 맑고 포근합니다.
+        </p>
+      </div>
+
+      <!-- 3. 본문영역 -->
+      <div class="main-body-box">
+
+        <!-- 5. 전국날씨 구성 -->
+        <div class="weather-frame">
+          <!-- 1. h1~h3 (h3) -->
+          <h3>5. 전국날씨 구성</h3>
+          
+          <div class="weather-content">
+            <!-- 10. img (alt 속성 포함) -->
+            <img src="https://via.placeholder.com/100x75/333333/ffffff?text=Weather" alt="전국 날씨 그림" class="weather-img">
+
+            <!-- 11. 표 (table, tr, th, td) -->
+            <table class="weather-table">
+              <tr>
+                <th>지역</th>
+                <th>날씨</th>
+                <th>기온</th>
+              </tr>
+              <tr>
+                <td>오산시</td>
+                <td>맑음</td>
+                <td>21℃</td>
+              </tr>
+              <tr>
+                <td>서울</td>
+                <td>구름조금</td>
+                <td>20℃</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <!-- 본문 검은 줄 텍스트 영역 -->
+        <div class="article-lines">
+          <!-- 2. p -->
+          <p>■ 경기도 오산시 오산동 기준 현재 기온 21℃, 습도 45%입니다.</p>
+          <p>■ 미세먼지 농도는 '보통' 수준으로 야외 활동에 적합합니다.</p>
+          <p>■ 오후부터 구름이 많아질 예정이니 참고하시기 바랍니다.</p>
+          <p>■ 자세한 동네예보는 사이드메뉴의 상세 카테고리를 이용하세요.</p>
+        </div>
+
+        <!-- 종이접힘 연출 -->
+        <div class="page-curl"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>
