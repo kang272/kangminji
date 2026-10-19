@@ -2,552 +2,573 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>전국 날씨 및 정보 웹사이트</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전국 날씨 및 정보 웹사이트</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-      font-family: '맑은 고딕', sans-serif;
-      background-color: #f5f5f5;
-      padding: 20px;
-      color: #333;
-    }
+        body {
+            font-family: '맑은 고딕', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            color: #333;
+        }
 
-    .container {
-      display: flex;
-      gap: 15px;
-      width: 100%;
-      max-width: 1000px;
-      margin: 0 auto;
-      align-items: flex-start;
-    }
+        /* 전체 레이아웃 */
+        .container {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
 
-    /* 사이드메뉴 */
-    #sidebar {
-      width: 200px;
-      min-height: 550px;
-      flex-shrink: 0;
-      background-color: #d8d8d8;
-      border: 2px solid #a0a0a0;
-      padding: 15px 10px;
-    }
+        /* 사이드메뉴 */
+        #sidebar {
+            width: 200px;
+            min-height: 550px;
+            flex-shrink: 0;
+            background-color: #d8d8d8;
+            border: 2px solid #a0a0a0;
+            padding: 15px 10px;
+        }
 
-    #sidebar h2 {
-      font-size: 16px;
-      text-align: center;
-      margin-bottom: 15px;
-    }
+        #sidebar h2 {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
 
-    .menu-ul {
-      list-style: none;
-    }
+        .menu-ul {
+            list-style: none;
+        }
 
-    .menu-ul li {
-      margin-bottom: 10px;
-    }
+        .menu-ul li {
+            margin-bottom: 10px;
+        }
 
-    .menu-ul a {
-      display: block;
-      padding: 12px 4px;
-      background-color: #4a4a4a;
-      color: white;
-      text-decoration: none;
-      text-align: center;
-      font-weight: bold;
-      font-size: 13px;
-      border: 1px solid #333;
-    }
+        .menu-ul a {
+            display: block;
+            padding: 12px 4px;
+            background-color: #4a4a4a;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+            font-size: 13px;
+            border: 1px solid #333;
+        }
 
-    .menu-ul a:hover {
-      background-color: #666;
-    }
+        .menu-ul a:hover {
+            background-color: #666;
+        }
 
-    .menu-ol-title {
-      font-size: 12px;
-      font-weight: bold;
-      margin-top: 20px;
-      margin-bottom: 8px;
-    }
+        .menu-ol-title {
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 8px;
+        }
 
-    .menu-ol {
-      padding-left: 20px;
-      font-size: 13px;
-    }
+        .menu-ol {
+            padding-left: 20px;
+            font-size: 13px;
+        }
 
-    .menu-ol li {
-      margin-bottom: 6px;
-    }
+        .menu-ol li {
+            margin-bottom: 6px;
+        }
 
-    /* 오른쪽 내용 */
-    #content-area {
-      flex: 1;
-      min-width: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
+        /* 오른쪽 내용 */
+        #content-area {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+        }
 
-    .top-main-box {
-      background-color: #d8d8d8;
-      border: 2px solid #a0a0a0;
-      border-radius: 15px;
-      padding: 15px 20px;
-    }
+        .top-main-box {
+            width: 100%;
+            background-color: #d8d8d8;
+            border: 2px solid #a0a0a0;
+            border-radius: 15px;
+            padding: 15px 20px;
+            margin-bottom: 15px;
+        }
 
-    .top-main-box h1 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
+        .top-main-box h1 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
 
-    .my-region-text {
-      display: inline-block;
-      font-weight: bold;
-      color: #333;
-      background-color: white;
-      border: 1px solid #333;
-      padding: 2px 6px;
-    }
+        .my-region-text {
+            display: inline-block;
+            font-weight: bold;
+            color: #333;
+            background-color: white;
+            border: 1px solid #333;
+            padding: 2px 6px;
+        }
 
-    /* 본문 */
-    .main-body-box {
-      position: relative;
-      background-color: #a8a8a8;
-      border: 2px solid #787878;
-      padding: 15px;
-    }
+        /* 본문 */
+        .main-body-box {
+            position: relative;
+            width: 100%;
+            background-color: #a8a8a8;
+            border: 2px solid #787878;
+            padding: 15px;
+        }
 
-    .weather-frame {
-      background-color: #606060;
-      border: 5px solid #404040;
-      padding: 12px;
-      margin-bottom: 15px;
-      color: white;
-    }
+        .weather-frame {
+            background-color: #606060;
+            border: 5px solid #404040;
+            padding: 12px;
+            margin-bottom: 15px;
+            color: white;
+        }
 
-    .weather-frame h3 {
-      font-size: 15px;
-      margin-bottom: 10px;
-    }
+        .weather-frame h3 {
+            font-size: 15px;
+            margin-bottom: 10px;
+        }
 
-    .weather-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+        .weather-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
 
-    .weather-img {
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border: 2px solid white;
-    }
+        .weather-img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border: 2px solid white;
+        }
 
-    .weather-table {
-      border-collapse: collapse;
-      background-color: white;
-      color: #333;
-      font-size: 12px;
-    }
+        .weather-table {
+            border-collapse: collapse;
+            background-color: white;
+            color: #333;
+            font-size: 12px;
+        }
 
-    .weather-table th,
-    .weather-table td {
-      border: 1px solid #888;
-      padding: 7px 10px;
-      text-align: center;
-    }
+        .weather-table th,
+        .weather-table td {
+            border: 1px solid #888;
+            padding: 7px 10px;
+            text-align: center;
+        }
 
-    .weather-table th {
-      background-color: #e0e0e0;
-    }
+        .weather-table th {
+            background-color: #e0e0e0;
+        }
 
-    .article-lines {
-      margin-top: 10px;
-      margin-bottom: 18px;
-    }
+        /* 날씨 안내 문구 */
+        .article-lines {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
 
-    .article-lines p {
-      background-color: #111;
-      color: white;
-      padding: 8px 10px;
-      margin-bottom: 6px;
-      font-size: 12px;
-      transition: color 0.2s;
-    }
+        .article-lines p {
+            background-color: #111;
+            color: white;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            font-size: 12px;
+        }
 
-    /* JavaScript 실습 영역 */
-    .js-section {
-      background-color: #f5f5f5;
-      border: 2px solid #555;
-      padding: 15px;
-      margin-top: 20px;
-      color: #333;
-    }
+        /* JavaScript 체험 영역 */
+        .js-practice {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            width: 100%;
+            padding: 20px;
+            margin-top: 20px;
+            background-color: #eeeeee;
+            border: 1px solid #888;
+            border-radius: 8px;
+        }
 
-    .js-section h2 {
-      font-size: 19px;
-      margin-bottom: 8px;
-    }
+        .js-practice > .section-title {
+            grid-column: 1 / -1;
+            font-size: 20px;
+            margin: 0;
+        }
 
-    .js-description {
-      font-size: 13px;
-      margin-bottom: 15px;
-    }
+        .js-card {
+            min-width: 0;
+            padding: 15px;
+            background-color: white;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+        }
 
-    .js-card {
-      background-color: white;
-      border: 1px solid #bbb;
-      padding: 13px;
-      margin-bottom: 12px;
-    }
+        .js-card h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
 
-    .js-card h3 {
-      font-size: 15px;
-      margin-bottom: 10px;
-    }
+        .js-card form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
 
-    .js-card p {
-      font-size: 13px;
-      margin-top: 8px;
-      overflow-wrap: anywhere;
-    }
+        .js-card input {
+            width: 100%;
+            min-width: 0;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+        }
 
-    .js-card input {
-      width: 100%;
-      max-width: 280px;
-      display: block;
-      padding: 9px;
-      margin-bottom: 8px;
-      border: 1px solid #aaa;
-      font-size: 14px;
-    }
+        .js-card button {
+            padding: 10px 14px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            background-color: #444;
+            color: white;
+            cursor: pointer;
+        }
 
-    .js-button {
-      background-color: #333;
-      color: white;
-      border: 1px solid #222;
-      padding: 9px 13px;
-      margin: 3px 3px 3px 0;
-      cursor: pointer;
-      font-size: 13px;
-    }
+        .js-card button:hover {
+            background-color: #666;
+        }
 
-    .js-button:hover {
-      background-color: #555;
-    }
+        #text_message {
+            line-height: 1.8;
+            overflow-wrap: anywhere;
+            cursor: pointer;
+        }
 
-    #login-result,
-    #click-message,
-    #color-message {
-      font-weight: bold;
-    }
+        #count_number {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
 
-    .page-curl {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      width: 0;
-      height: 0;
-      border-bottom: 30px solid #f5f5f5;
-      border-left: 30px solid #666;
-    }
+        #login_result {
+            margin-top: 10px;
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
 
-    /* 수행평가 안내 */
-    .assignment {
-      background-color: #e1e1e1;
-      border: 2px solid #999;
-      padding: 15px;
-      margin-top: 15px;
-    }
+        /* 수행평가 안내 */
+        .assignment {
+            background-color: #e1e1e1;
+            border: 2px solid #999;
+            padding: 15px;
+            margin-top: 20px;
+        }
 
-    .assignment h2 {
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
+        .assignment h2 {
+            font-size: 17px;
+            margin-bottom: 10px;
+        }
 
-    .assignment p,
-    .assignment li {
-      font-size: 13px;
-      line-height: 1.8;
-    }
+        .assignment p,
+        .assignment li {
+            font-size: 13px;
+            line-height: 1.8;
+        }
 
-    .assignment a {
-      color: #174c9c;
-    }
+        .assignment a {
+            color: #174c9c;
+        }
 
-    @media (max-width: 650px) {
-      body {
-        padding: 10px;
-      }
+        .assignment ul {
+            padding-left: 20px;
+        }
 
-      .container {
-        flex-direction: column;
-      }
+        .page-curl {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 30px solid #f5f5f5;
+            border-left: 30px solid #666;
+        }
 
-      #sidebar {
-        width: 100%;
-        min-height: auto;
-      }
+        /* 작은 화면 */
+        @media (max-width: 850px) {
+            .js-practice {
+                grid-template-columns: 1fr;
+            }
+        }
 
-      #content-area {
-        width: 100%;
-      }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
 
-      .weather-content {
-        align-items: flex-start;
-      }
-    }
-  </style>
+            .container {
+                flex-direction: column;
+            }
+
+            #sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+
+            #content-area {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div class="container">
+
+<div class="container">
 
     <!-- 사이드메뉴 -->
     <aside id="sidebar">
-      <h2>2. 사이드메뉴</h2>
+        <h2>2. 사이드메뉴</h2>
 
-      <ul class="menu-ul">
-        <li><a href="#weather">실시간 날씨</a></li>
-        <li><a href="#forecast">주간 일기예보</a></li>
-        <li><a href="#dust">미세먼지 정보</a></li>
-        <li><a href="#notice">태풍/기상특보</a></li>
-      </ul>
+        <ul class="menu-ul">
+            <li><a href="#weather">실시간 날씨</a></li>
+            <li><a href="#forecast">주간 일기예보</a></li>
+            <li><a href="#dust">미세먼지 정보</a></li>
+            <li><a href="#notice">태풍/기상특보</a></li>
+        </ul>
 
-      <p class="menu-ol-title">[인기 검색 지역]</p>
-      <ol class="menu-ol">
-        <li>경기도 오산시</li>
-        <li>서울특별시</li>
-        <li>부산광역시</li>
-        <li>제주특별자치도</li>
-      </ol>
+        <p class="menu-ol-title">[인기 검색 지역]</p>
+        <ol class="menu-ol">
+            <li>경기도 오산시</li>
+            <li>서울특별시</li>
+            <li>부산광역시</li>
+            <li>제주특별자치도</li>
+        </ol>
     </aside>
 
     <!-- 오른쪽 영역 -->
     <main id="content-area">
 
-      <header class="top-main-box">
-        <h1>1. 메인</h1>
-        <p>
-          4. 내 지역:
-          <span class="my-region-text">경기도 오산시</span>
-        </p>
-        <p>오늘의 날씨 상태는 대체로 맑고 포근합니다.</p>
-      </header>
-
-      <div class="main-body-box">
-
-        <!-- 날씨 정보 -->
-        <section class="weather-frame" id="weather">
-          <h3>5. 전국날씨 구성</h3>
-
-          <div class="weather-content">
-            <!-- 이미지 파일 이름이 다르면 src 값을 수정하세요. -->
-            <img
-              src="다운로드.jpg"
-              alt="전국 날씨 그림"
-              class="weather-img"
-            >
-
-            <table class="weather-table">
-              <tr>
-                <th>지역</th>
-                <th>날씨</th>
-                <th>기온</th>
-              </tr>
-              <tr>
-                <td>오산시</td>
-                <td>맑음</td>
-                <td>21℃</td>
-              </tr>
-              <tr>
-                <td>서울</td>
-                <td>구름조금</td>
-                <td>20℃</td>
-              </tr>
-            </table>
-          </div>
-        </section>
-
-        <!-- 날씨 안내 문구 -->
-        <section class="article-lines">
-          <p id="forecast">■ 경기도 오산시 오산동 기준 현재 기온 21℃, 습도 45%입니다.</p>
-          <p id="dust">■ 미세먼지 농도는 '보통' 수준으로 야외 활동에 적합합니다.</p>
-          <p id="notice">■ 오후부터 구름이 많아질 예정이니 참고하시기 바랍니다.</p>
-          <p>■ 자세한 동네예보는 사이드메뉴의 상세 카테고리를 이용하세요.</p>
-        </section>
-
-        <!-- JavaScript 기능 -->
-        <section class="js-section">
-          <h2>JavaScript 실습</h2>
-          <p class="js-description">
-            로그인, 버튼 클릭, 글씨 색 바꾸기, 클릭 횟수 세기를 연습해 봅니다.
-          </p>
-
-          <!-- 1. 로그인 -->
-          <div class="js-card">
-            <h3>1. 로그인 기능</h3>
-
-            <form id="login-form">
-              <input
-                type="text"
-                id="user-id"
-                placeholder="아이디 입력"
-                autocomplete="username"
-                required
-              >
-
-              <input
-                type="password"
-                id="user-password"
-                placeholder="비밀번호 입력"
-                autocomplete="current-password"
-                required
-              >
-
-              <button type="submit" class="js-button">로그인</button>
-            </form>
-
-            <p id="login-result" aria-live="polite">아이디와 비밀번호를 입력하세요.</p>
-          </div>
-
-          <!-- 2. 버튼 클릭 -->
-          <div class="js-card">
-            <h3>2. 버튼 클릭 기능</h3>
-            <button type="button" class="js-button" id="message-button">
-              날씨 안내 확인
-            </button>
-            <p id="click-message" aria-live="polite">
-              버튼을 누르면 안내 메시지가 나옵니다.
+        <!-- 메인 -->
+        <header class="top-main-box">
+            <h1>1. 메인</h1>
+            <p>
+                4. 내 지역:
+                <span class="my-region-text">경기도 오산시</span>
             </p>
-          </div>
+            <p>오늘의 날씨 상태는 대체로 맑고 포근합니다.</p>
+        </header>
 
-          <!-- 3. 글씨 색 바꾸기 -->
-          <div class="js-card">
-            <h3>3. 글씨 색 바꾸기</h3>
-            <button type="button" class="js-button" id="color-button">
-              날씨 글씨 색 바꾸기
-            </button>
-            <p id="color-message">
-              이 글씨의 색상이 버튼을 누를 때마다 바뀝니다.
-            </p>
-          </div>
+        <!-- 본문 -->
+        <div class="main-body-box">
 
-          <!-- 4. 클릭 횟수 세기 -->
-          <div class="js-card">
-            <h3>4. 클릭 횟수 세기</h3>
-            <button type="button" class="js-button" id="count-button">
-              클릭하기
-            </button>
-            <button type="button" class="js-button" id="reset-button">
-              횟수 초기화
-            </button>
-            <p>클릭 횟수: <span id="click-count">0</span>회</p>
-          </div>
-        </section>
+            <!-- 전국 날씨 -->
+            <section class="weather-frame" id="weather">
+                <h3>5. 전국날씨 구성</h3>
 
-        <!-- 수행평가 안내 -->
-        <section class="assignment">
-          <h2>수행평가 안내</h2>
-          <p>인공지능을 활용하여 웹사이트를 구현합니다.</p>
+                <div class="weather-content">
+                    <img
+                        src="다운로드.jpg"
+                        alt="전국 날씨 그림"
+                        class="weather-img"
+                    >
 
-          <p>
-            <a href="https://google.com" target="_blank" rel="noopener noreferrer">
-              구글 외부 링크
-            </a>
-          </p>
+                    <table class="weather-table">
+                        <tr>
+                            <th>지역</th>
+                            <th>날씨</th>
+                            <th>기온</th>
+                        </tr>
+                        <tr>
+                            <td>오산시</td>
+                            <td>맑음</td>
+                            <td>21℃</td>
+                        </tr>
+                        <tr>
+                            <td>서울</td>
+                            <td>구름조금</td>
+                            <td>20℃</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
 
-          <p>
-            <a href="https://osani-h.goehs.kr/" target="_blank" rel="noopener noreferrer">
-              오산정보고등학교
-            </a>
-          </p>
+            <!-- 날씨 안내 -->
+            <section class="article-lines">
+                <p id="forecast">
+                    ■ 경기도 오산시 오산동 기준 현재 기온 21℃, 습도 45%입니다.
+                </p>
+                <p id="dust">
+                    ■ 미세먼지 농도는 '보통' 수준으로 야외 활동에 적합합니다.
+                </p>
+                <p id="notice">
+                    ■ 오후부터 구름이 많아질 예정이니 참고하시기 바랍니다.
+                </p>
+                <p>
+                    ■ 자세한 동네예보는 사이드메뉴의 상세 카테고리를 이용하세요.
+                </p>
+            </section>
 
-          <h2>유의 사항</h2>
-          <ul>
-            <li>HTML, CSS, JS 누적 사용</li>
-            <li>바이브 코딩 스크립트 기록</li>
-          </ul>
-        </section>
+            <!-- JavaScript 실습 -->
+            <section class="js-practice">
 
-        <div class="page-curl"></div>
-      </div>
+                <h2 class="section-title">💻 JavaScript 체험</h2>
+
+                <!-- 1. 로그인 -->
+                <div class="js-card">
+                    <h3>1. 로그인</h3>
+
+                    <form id="loginForm">
+                        <input
+                            type="text"
+                            id="user_Id"
+                            placeholder="아이디"
+                            required
+                        >
+
+                        <input
+                            type="password"
+                            id="user_Pw"
+                            placeholder="비밀번호"
+                            required
+                        >
+
+                        <button type="submit">로그인</button>
+                    </form>
+
+                    <p id="login_result">
+                        아이디와 비밀번호를 입력하세요.
+                    </p>
+                </div>
+
+                <!-- 2. 글씨 색 바꾸기 -->
+                <div class="js-card">
+                    <h3>2. 글씨 색 바꾸기</h3>
+
+                    <p id="text_message">
+                        오늘의 날씨를 확인하세요!
+                        버튼을 누르면 글씨 색이 바뀝니다.
+                    </p>
+
+                    <button type="button" id="color_button">
+                        글씨 색 바꾸기
+                    </button>
+                </div>
+
+                <!-- 3. 카운터 -->
+                <div class="js-card">
+                    <h3>3. 카운터</h3>
+
+                    <p id="count_number">0번 클릭</p>
+
+                    <button type="button" id="counter">
+                        클릭하기 +
+                    </button>
+
+                    <button type="button" id="reset_counter">
+                        초기화
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- 수행평가 안내 -->
+            <section class="assignment">
+                <h2>수행평가2 예시 페이지</h2>
+                <p>인공지능을 활용하여 웹사이트를 구현합니다.</p>
+
+                <p>
+                    <a href="https://google.com" target="_blank"
+                       rel="noopener noreferrer">구글 외부 링크</a>
+                </p>
+
+                <p>
+                    <a href="https://osani-h.goehs.kr/" target="_blank"
+                       rel="noopener noreferrer">오산정보고등학교</a>
+                </p>
+
+                <h2>유의 사항</h2>
+                <ul>
+                    <li>HTML, CSS, JS 누적 사용</li>
+                    <li>바이브 코딩 스크립트 기록</li>
+                </ul>
+
+                <p>
+                    <img
+                        src="photo.svg"
+                        alt="코드온 동아리 활동 모습"
+                        style="max-width: 100%; height: auto; margin-top: 10px;"
+                    >
+                </p>
+            </section>
+
+            <div class="page-curl"></div>
+        </div>
     </main>
-  </div>
+</div>
 
-  <script>
-    // 1. 로그인 기능
-    // 과제 연습용 예시 계정입니다.
-    const demoId = "student";
-    const demoPassword = "1234";
+<!-- JavaScript -->
+<script>
+    // 1. 로그인
+    const id = "junamsu";
+    const pw = "helloworld";
 
-    const loginForm = document.getElementById("login-form");
-    const loginResult = document.getElementById("login-result");
+    const loginForm = document.querySelector("#loginForm");
+    const loginResult = document.querySelector("#login_result");
 
-    loginForm.addEventListener("submit", function(event) {
-      event.preventDefault();
+    loginForm.onsubmit = function(e) {
+        e.preventDefault();
 
-      const id = document.getElementById("user-id").value.trim();
-      const password = document.getElementById("user-password").value;
+        const inputId = document.querySelector("#user_Id").value;
+        const inputPw = document.querySelector("#user_Pw").value;
 
-      if (id === demoId && password === demoPassword) {
-        loginResult.textContent = "로그인 성공! 환영합니다.";
-        loginResult.style.color = "green";
-      } else {
-        loginResult.textContent = "아이디 또는 비밀번호를 확인하세요.";
-        loginResult.style.color = "red";
-      }
-    });
+        if (inputId === id && inputPw === pw) {
+            loginResult.textContent = "로그인 성공! 환영합니다.";
+            loginResult.style.color = "green";
+            alert("로그인 성공!");
+        } else {
+            loginResult.textContent =
+                "로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.";
+            loginResult.style.color = "red";
+            alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
+        }
+    };
 
-    // 2. 버튼 클릭 시 안내 메시지 표시
-    const messageButton = document.getElementById("message-button");
-    const clickMessage = document.getElementById("click-message");
+    // 2. 카운터
+    let number = 0;
 
-    messageButton.addEventListener("click", function() {
-      clickMessage.textContent =
-        "오늘의 날씨 정보를 확인했습니다. 외출 전에 날씨를 확인하세요!";
-    });
+    const counter = document.querySelector("#counter");
+    const countNumber = document.querySelector("#count_number");
+    const resetCounter = document.querySelector("#reset_counter");
 
-    // 3. 버튼을 누를 때마다 글씨 색 바꾸기
-    const colorButton = document.getElementById("color-button");
-    const colorMessage = document.getElementById("color-message");
+    counter.onclick = function() {
+        number++;
+        countNumber.textContent = number + "번 클릭";
+    };
 
-    const colors = ["red", "blue", "green", "purple", "#333333"];
-    let colorIndex = 0;
+    resetCounter.onclick = function() {
+        number = 0;
+        countNumber.textContent = number + "번 클릭";
+    };
 
-    colorButton.addEventListener("click", function() {
-      colorMessage.style.color = colors[colorIndex];
-      colorIndex++;
+    // 3. 글씨 색 바꾸기
+    const textMessage = document.querySelector("#text_message");
+    const colorButton = document.querySelector("#color_button");
 
-      if (colorIndex >= colors.length) {
-        colorIndex = 0;
-      }
-    });
+    colorButton.onclick = function() {
+        const r = Math.floor(Math.random() * 256);
+        const g = Math.floor(Math.random() * 256);
+        const b = Math.floor(Math.random() * 256);
 
-    // 4. 버튼 클릭 횟수 세기
-    const countButton = document.getElementById("count-button");
-    const resetButton = document.getElementById("reset-button");
-    const clickCount = document.getElementById("click-count");
+        textMessage.style.color =
+            "rgb(" + r + "," + g + "," + b + ")";
+    };
+</script>
 
-    let count = 0;
-
-    countButton.addEventListener("click", function() {
-      count++;
-      clickCount.textContent = count;
-    });
-
-    resetButton.addEventListener("click", function() {
-      count = 0;
-      clickCount.textContent = count;
-    });
-  </script>
 </body>
 </html>
 ```
