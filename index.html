@@ -19,7 +19,6 @@
             color: #333;
         }
 
-        /* 전체 레이아웃 */
         .container {
             display: flex;
             gap: 15px;
@@ -28,7 +27,6 @@
             margin: 0 auto;
         }
 
-        /* 사이드메뉴 */
         #sidebar {
             width: 200px;
             min-height: 550px;
@@ -84,7 +82,6 @@
             margin-bottom: 6px;
         }
 
-        /* 오른쪽 내용 */
         #content-area {
             flex: 1;
             min-width: 0;
@@ -115,7 +112,6 @@
             padding: 2px 6px;
         }
 
-        /* 본문 */
         .main-body-box {
             position: relative;
             width: 100%;
@@ -144,52 +140,5 @@
             width: 100%;
         }
 
-        /* 💡 사진이 잘리지 않고 박스 크기에 딱 맞춰 들어가도록 설정 */
         .weather-img {
-            width: 100%;
-            max-width: 650px;
-            height: 380px;
-            object-fit: contain;
-            background-color: #222222;
-            border: 2px solid white;
-            display: block;
-        }
-
-        /* 날씨 안내 문구 */
-        .article-lines {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .article-lines p {
-            background-color: #111;
-            color: white;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            font-size: 12px;
-        }
-
-        /* JavaScript 체험 영역 */
-        .js-practice {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 15px;
-            width: 100%;
-            padding: 20px;
-            margin-top: 20px;
-            background-color: #eeeeee;
-            border: 1px solid #888;
-            border-radius: 8px;
-        }
-
-        .js-practice > .section-title {
-            grid-column: 1 / -1;
-            font-size: 20px;
-            margin: 0;
-            color: #333;
-        }
-
-        .js-card {
-            min-width: 0;
-            padding: 15px;
-            background-color: white;
+            width: 100
