@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전국 날씨 및 정보 웹사이트</title>
-
+    <title>날씨누리 - 오산시 날씨정보시스템</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,132 +12,865 @@
         }
 
         body {
-            font-family: '맑은 고딕', sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
+            background-color: #f8f9fa;
             color: #333;
+            line-height: 1.5;
         }
 
-        .container {
-            display: flex;
-            gap: 15px;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
+        /* 1. 최상단 헤더 & GNB */
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e1e4e8;
         }
 
-        #sidebar {
-            width: 200px;
-            min-height: 550px;
-            flex-shrink: 0;
-            background-color: #d8d8d8;
-            border: 2px solid #a0a0a0;
-            padding: 15px 10px;
-        }
-
-        #sidebar h2 {
-            font-size: 16px;
+        .top-slogan {
             text-align: center;
-            margin-bottom: 15px;
-        }
-
-        .menu-ul {
-            list-style: none;
-        }
-
-        .menu-ul li {
-            margin-bottom: 10px;
-        }
-
-        .menu-ul a {
-            display: block;
-            padding: 12px 4px;
-            background-color: #4a4a4a;
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            font-weight: bold;
-            font-size: 13px;
-            border: 1px solid #333;
-        }
-
-        .menu-ul a:hover {
-            background-color: #666;
-        }
-
-        .menu-ol-title {
             font-size: 12px;
+            color: #1a5cbe;
             font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 8px;
+            padding: 6px 0;
+            background-color: #f1f5f9;
         }
 
-        .menu-ol {
-            padding-left: 20px;
-            font-size: 13px;
-        }
-
-        .menu-ol li {
-            margin-bottom: 6px;
-        }
-
-        #content-area {
-            flex: 1;
-            min-width: 0;
+        .header-main {
+            max-width: 1200px;
+            margin: 0 auto;
             display: flex;
-            flex-direction: column;
-        }
-
-        .top-main-box {
-            width: 100%;
-            background-color: #d8d8d8;
-            border: 2px solid #a0a0a0;
-            border-radius: 15px;
+            justify-content: space-between;
+            align-items: center;
             padding: 15px 20px;
-            margin-bottom: 15px;
         }
 
-        .top-main-box h1 {
-            font-size: 18px;
-            margin-bottom: 8px;
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .my-region-text {
-            display: inline-block;
-            font-weight: bold;
-            color: #333;
-            background-color: white;
-            border: 1px solid #333;
-            padding: 2px 6px;
-        }
-
-        .main-body-box {
-            position: relative;
-            width: 100%;
-            background-color: #a8a8a8;
-            border: 2px solid #787878;
-            padding: 15px;
-        }
-
-        .weather-frame {
-            background-color: #606060;
-            border: 5px solid #404040;
-            padding: 12px;
-            margin-bottom: 15px;
+        .logo-mark {
+            width: 32px;
+            height: 32px;
+            background-color: #1a5cbe;
             color: white;
-        }
-
-        .weather-frame h3 {
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-
-        .weather-content {
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100%;
+            font-weight: bold;
+            font-size: 14px;
         }
 
-        .weather-img {
-            width: 100
+        .logo-text h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #222;
+            letter-spacing: -1px;
+        }
+
+        .logo-text span {
+            font-size: 11px;
+            color: #777;
+            display: block;
+            margin-top: -3px;
+        }
+
+        /* GNB 메인 메뉴 */
+        .gnb-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .gnb-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 5px 0;
+        }
+
+        .gnb-menu a:hover {
+            color: #0078d4;
+            border-bottom: 2px solid #0078d4;
+        }
+
+        /* 2. 메인 컨테이너 (좌: 지도/검색, 우: 날씨현황) */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* 메인 왼쪽 영역 */
+        .left-panel {
+            flex: 1.2;
+            min-width: 0;
+        }
+
+        /* 탭 버튼 */
+        .tab-buttons {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .tab-btn {
+            padding: 8px 24px;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #70757a;
+            color: white;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .tab-btn.active {
+            background-color: #0078d4;
+        }
+
+        /* 검색창 */
+        .search-box {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 2px solid #0078d4;
+            border-radius: 4px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 0 20px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 필터 태그버튼 */
+        .filter-tags {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .tag-btn {
+            padding: 5px 10px;
+            font-size: 12px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #444;
+        }
+
+        .tag-btn.active {
+            background-color: #0078d4;
+            color: white;
+            border-color: #0078d4;
+        }
+
+        /* 지도/이미지 박스 */
+        .map-view-box {
+            width: 100%;
+            height: 480px;
+            background-color: #e9ecef;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .map-view-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 오른쪽 날씨 브리핑 패널 */
+        .right-panel {
+            flex: 1;
+            background-color: #ffffff;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .location-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .location-header h3 {
+            font-size: 16px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .update-time {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* 대형 기온 표시 */
+        .current-temp-area {
+            text-align: center;
+            padding: 15px 0 5px;
+        }
+
+        .main-degree {
+            font-size: 52px;
+            font-weight: 800;
+            color: #111;
+            letter-spacing: -2px;
+        }
+
+        .sensory-temp {
+            font-size: 14px;
+            color: #555;
+            margin-left: 5px;
+        }
+
+        .temp-diff {
+            font-size: 14px;
+            color: #333;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        /* 습도/바람 정보 그리드 */
+        .weather-sub-info {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background-color: #f8f9fa;
+            border-radius: 6px;
+            padding: 12px 5px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .sub-item {
+            border-right: 1px solid #eee;
+        }
+
+        .sub-item:last-child {
+            border-right: none;
+        }
+
+        .sub-label {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .sub-value {
+            font-size: 14px;
+            font-weight: bold;
+            color: #222;
+            margin-top: 2px;
+        }
+
+        /* 미세먼지 원형 게이지 아이콘 영역 */
+        .dust-circle-group {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dust-card {
+            text-align: center;
+        }
+
+        .circle-gauge {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 4px solid #4cd137;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .dust-name {
+            font-size: 12px;
+            color: #555;
+        }
+
+        .dust-status {
+            font-size: 11px;
+            color: #4cd137;
+            font-weight: bold;
+        }
+
+        /* 예보 표 영역 */
+        .forecast-section {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 0 15px;
+        }
+
+        .forecast-card {
+            background-color: #ffffff;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .forecast-title {
+            font-size: 17px;
+            font-weight: bold;
+            color: #222;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .forecast-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .forecast-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            text-align: center;
+            min-width: 800px;
+        }
+
+        .forecast-table th, .forecast-table td {
+            border: 1px solid #e2e8f0;
+            padding: 8px 4px;
+        }
+
+        .forecast-table th {
+            background-color: #f1f5f9;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .forecast-table .day-sun { color: #e11d48; }
+        .forecast-table .day-sat { color: #2563eb; }
+
+        .temp-min { color: #2563eb; font-weight: bold; }
+        .temp-max { color: #e11d48; font-weight: bold; }
+
+        .hourly-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            text-align: center;
+            min-width: 900px;
+        }
+
+        .hourly-table td {
+            border-bottom: 1px solid #eee;
+            padding: 10px 4px;
+        }
+
+        .hourly-header-row {
+            background-color: #f8fafc;
+            font-weight: bold;
+            color: #334155;
+        }
+
+        /* 하단 JS 기능 체험 섹션 */
+        .bottom-section {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 15px;
+        }
+
+        .js-card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background-color: #ffffff;
+            border: 1px solid #dcdfe6;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .js-card {
+            background-color: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 6px;
+            padding: 15px;
+        }
+
+        .js-card h4 {
+            font-size: 15px;
+            color: #0078d4;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #0078d4;
+            padding-bottom: 5px;
+        }
+
+        .js-card input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .js-card button {
+            width: 100%;
+            padding: 8px;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .js-card button:hover {
+            background-color: #005a9e;
+        }
+
+        #login_result {
+            font-size: 12px;
+            margin-top: 8px;
+            color: #666;
+        }
+
+        @media (max-width: 850px) {
+            .container {
+                flex-direction: column;
+            }
+            .js-card-grid {
+                grid-template-columns: 1fr;
+            }
+            .gnb-menu {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. 최상단 헤더 -->
+    <header>
+        <div class="top-slogan">"하늘을 친구처럼, 국민을 하늘처럼"</div>
+        <div class="header-main">
+            <div class="logo-area">
+                <div class="logo-mark">날</div>
+                <div class="logo-text">
+                    <h1>날씨누리</h1>
+                    <span>날씨정보시스템</span>
+                </div>
+            </div>
+            <ul class="gnb-menu">
+                <li><a href="#">특보·예보</a></li>
+                <li><a href="#">현재날씨</a></li>
+                <li><a href="#">위험기상</a></li>
+                <li><a href="#">수치일기도</a></li>
+                <li><a href="#">기후·기후변화</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 2. 메인 컨테이너 -->
+    <div class="container">
+
+        <!-- 좌측: 지도 및 검색 영역 -->
+        <div class="left-panel">
+            <div class="tab-buttons">
+                <button class="tab-btn active">날씨</button>
+                <button class="tab-btn">전국</button>
+                <button class="tab-btn">태풍</button>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" value="경기도 오산시 오산동" placeholder="주요지역명으로 입력">
+                <button class="search-btn">검색</button>
+            </div>
+
+            <div class="filter-tags">
+                <button class="tag-btn">초단기강수예측</button>
+                <button class="tag-btn">특보</button>
+                <button class="tag-btn">어제</button>
+                <button class="tag-btn active">1시간관측</button>
+                <button class="tag-btn">현재날씨</button>
+                <button class="tag-btn">예보</button>
+            </div>
+
+            <!-- 날씨 이미지 / 지도 영역 -->
+            <div class="map-view-box">
+                <img src="스크린샷 2026-10-29 115220.png" alt="오산시 기상 현황 지도" onerror="this.style.display='none'; document.getElementById('alt-text').style.display='block';">
+                <div id="alt-text" style="display:none; text-align:center; color:#666;">
+                    <h3>📍 경기도 오산시 기상 지도</h3>
+                    <p style="font-size:13px; margin-top:5px;">[스크린샷 2026-10-29 115220.png] 이미지 파일이 준비되면 표시됩니다.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 우측: 실시간 날씨 브리핑 카드 -->
+        <div class="right-panel">
+            <div class="location-header">
+                <h3>📍 경기도 오산시 오산동</h3>
+                <span class="update-time">10.29.(목) 11:30 현재</span>
+            </div>
+
+            <div class="current-temp-area">
+                <div class="main-degree">9.5°C <span class="sensory-temp">체감(9.5°C) 🌡️</span></div>
+                <div class="temp-diff">어제보다 <strong>2°C 낮아요</strong></div>
+            </div>
+
+            <div class="weather-sub-info">
+                <div class="sub-item">
+                    <div class="sub-label">💧 습도</div>
+                    <div class="sub-value">55 %</div>
+                </div>
+                <div class="sub-item">
+                    <div class="sub-label">💨 바람</div>
+                    <div class="sub-value">동 1.3 m/s</div>
+                </div>
+                <div class="sub-item">
+                    <div class="sub-label">☔ 1시간강수량</div>
+                    <div class="sub-value">- mm</div>
+                </div>
+            </div>
+
+            <!-- 미세먼지 수치 원형 지표 -->
+            <div class="dust-circle-group">
+                <div class="dust-card">
+                    <div class="circle-gauge">12<br><span style="font-size:9px;">µg/m³</span></div>
+                    <div class="dust-name">초미세먼지</div>
+                    <div class="dust-status">좋음</div>
+                </div>
+                <div class="dust-card">
+                    <div class="circle-gauge" style="border-color:#f1c40f;">36<br><span style="font-size:9px;">µg/m³</span></div>
+                    <div class="dust-name">미세먼지</div>
+                    <div class="dust-status" style="color:#f39c12;">보통</div>
+                </div>
+                <div class="dust-card">
+                    <div class="circle-gauge">0.004<br><span style="font-size:9px;">ppm</span></div>
+                    <div class="dust-name">오존</div>
+                    <div class="dust-status">좋음</div>
+                </div>
+            </div>
+
+            <div style="font-size:12px; color:#777; text-align:right; margin-top:auto;">
+                정보출처: 기상청 / 한국환경공단
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. 일별 및 시간별 예보 섹션 -->
+    <div class="forecast-section">
+        
+        <!-- 일별 예보 카드 -->
+        <div class="forecast-card">
+            <div class="forecast-title">
+                <span>📅 일별 예보</span>
+                <span style="font-size:12px; color:#666; font-weight:normal;">경기도 오산시 오산동 기준</span>
+            </div>
+            <div class="forecast-table-wrapper">
+                <table class="forecast-table">
+                    <thead>
+                        <tr>
+                            <th>날짜</th>
+                            <th>29일(목)<br><span style="color:#0078d4;">오늘</span></th>
+                            <th>30일(금)<br>내일</th>
+                            <th class="day-sat">31일(토)<br>모레</th>
+                            <th class="day-sun">1일(일)</th>
+                            <th>2일(월)</th>
+                            <th>3일(화)</th>
+                            <th>4일(수)</th>
+                            <th>5일(목)</th>
+                            <th class="day-sat">6일(금)</th>
+                            <th class="day-sat">7일(토)</th>
+                            <th class="day-sun">8일(일)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>시각</strong></td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>오전 / 오후</td>
+                            <td>종일</td>
+                            <td>종일</td>
+                            <td>종일</td>
+                        </tr>
+                        <tr>
+                            <td><strong>날씨</strong></td>
+                            <td>☁️ / ☔</td>
+                            <td>☁️ / ☀️</td>
+                            <td>☁️ / ☀️</td>
+                            <td>☁️ / ⛅</td>
+                            <td>☁️ / ☀️</td>
+                            <td>☀️ / ☀️</td>
+                            <td>☀️ / ☀️</td>
+                            <td>⛅ / ⛅</td>
+                            <td>☀️</td>
+                            <td>☀️</td>
+                            <td>☀️</td>
+                        </tr>
+                        <tr>
+                            <td><strong>기온</strong></td>
+                            <td><span class="temp-min">6℃</span> / <span class="temp-max">15℃</span></td>
+                            <td><span class="temp-min">10℃</span> / <span class="temp-max">18℃</span></td>
+                            <td><span class="temp-min">7℃</span> / <span class="temp-max">14℃</span></td>
+                            <td><span class="temp-min">5℃</span> / <span class="temp-max">13℃</span></td>
+                            <td><span class="temp-min">6℃</span> / <span class="temp-max">14℃</span></td>
+                            <td><span class="temp-min">3℃</span> / <span class="temp-max">13℃</span></td>
+                            <td><span class="temp-min">4℃</span> / <span class="temp-max">14℃</span></td>
+                            <td><span class="temp-min">5℃</span> / <span class="temp-max">16℃</span></td>
+                            <td><span class="temp-min">5℃</span> / <span class="temp-max">15℃</span></td>
+                            <td><span class="temp-min">6℃</span> / <span class="temp-max">14℃</span></td>
+                            <td><span class="temp-min">6℃</span> / <span class="temp-max">14℃</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>강수확률</strong></td>
+                            <td>- / 60%</td>
+                            <td>30% / 10%</td>
+                            <td>0% / 10%</td>
+                            <td>30% / 60%</td>
+                            <td>30% / 10%</td>
+                            <td>10% / 10%</td>
+                            <td>10% / 10%</td>
+                            <td>20% / 20%</td>
+                            <td>10%</td>
+                            <td>10%</td>
+                            <td>10%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 시간별 예보 카드 -->
+        <div class="forecast-card">
+            <div class="forecast-title">
+                <span>🕒 시간별 예보</span>
+                <div style="display:flex; gap:5px;">
+                    <button class="tag-btn active">3시간 간격</button>
+                    <button class="tag-btn">1시간 간격</button>
+                </div>
+            </div>
+            <div class="forecast-table-wrapper">
+                <table class="hourly-table">
+                    <tbody>
+                        <tr class="hourly-header-row">
+                            <td><strong>시각</strong></td>
+                            <td>15시</td>
+                            <td>18시</td>
+                            <td>21시</td>
+                            <td>00시</td>
+                            <td>03시</td>
+                            <td>06시</td>
+                            <td>09시</td>
+                            <td>12시</td>
+                            <td>15시</td>
+                            <td>18시</td>
+                            <td>21시</td>
+                        </tr>
+                        <tr>
+                            <td><strong>날씨</strong></td>
+                            <td>☁️</td>
+                            <td>☔</td>
+                            <td>☔</td>
+                            <td>☔</td>
+                            <td>☁️</td>
+                            <td>☁️</td>
+                            <td>☁️</td>
+                            <td>⛅</td>
+                            <td>⛅</td>
+                            <td>⛅</td>
+                            <td>🌙</td>
+                        </tr>
+                        <tr>
+                            <td><strong>기온</strong></td>
+                            <td><strong>14℃</strong></td>
+                            <td><strong>12℃</strong></td>
+                            <td><strong>11℃</strong></td>
+                            <td><strong>11℃</strong></td>
+                            <td><strong>11℃</strong></td>
+                            <td><strong>10℃</strong></td>
+                            <td><strong>12℃</strong></td>
+                            <td><strong>16℃</strong></td>
+                            <td><strong>18℃</strong></td>
+                            <td><strong>15℃</strong></td>
+                            <td><strong>13℃</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>체감온도</strong></td>
+                            <td>14℃</td>
+                            <td>12℃</td>
+                            <td>11℃</td>
+                            <td>11℃</td>
+                            <td>11℃</td>
+                            <td>10℃</td>
+                            <td>12℃</td>
+                            <td>16℃</td>
+                            <td>18℃</td>
+                            <td>15℃</td>
+                            <td>13℃</td>
+                        </tr>
+                        <tr>
+                            <td><strong>강수확률</strong></td>
+                            <td>30%</td>
+                            <td>60%</td>
+                            <td>60%</td>
+                            <td>60%</td>
+                            <td>30%</td>
+                            <td>30%</td>
+                            <td>30%</td>
+                            <td>20%</td>
+                            <td>10%</td>
+                            <td>10%</td>
+                            <td>0%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>습도</strong></td>
+                            <td>55%</td>
+                            <td>70%</td>
+                            <td>75%</td>
+                            <td>85%</td>
+                            <td>90%</td>
+                            <td>95%</td>
+                            <td>90%</td>
+                            <td>55%</td>
+                            <td>50%</td>
+                            <td>70%</td>
+                            <td>80%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 4. 하단 JS 인터랙티브 체험 섹션 -->
+    <div class="bottom-section">
+        <div class="js-card-grid">
+
+            <!-- 1. 로그인 -->
+            <div class="js-card">
+                <h4>1. 사용자 인증</h4>
+                <form id="loginForm">
+                    <input type="text" id="user_Id" placeholder="아이디" required>
+                    <input type="password" id="user_Pw" placeholder="비밀번호" required>
+                    <button type="submit">로그인</button>
+                </form>
+                <p id="login_result">아이디와 비밀번호를 입력하세요.</p>
+            </div>
+
+            <!-- 2. 글씨 색 바꾸기 -->
+            <div class="js-card">
+                <h4>2. 테마 텍스트 변경</h4>
+                <p id="text_message" style="font-size:13px; margin-bottom:12px; line-height:1.4;">
+                    버튼을 누르면 안내 문구 색상이 변경됩니다.
+                </p>
+                <button type="button" id="color_button">색상 변경</button>
+            </div>
+
+            <!-- 3. 카운터 -->
+            <div class="js-card">
+                <h4>3. 조회 카운터</h4>
+                <p id="count_number" style="font-size:20px; font-weight:bold; margin-bottom:10px;">0회 클릭</p>
+                <div style="display:flex; gap:5px;">
+                    <button type="button" id="counter">클릭 +</button>
+                    <button type="button" id="reset_counter" style="background-color:#7f8c8d;">초기화</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 자바스크립트 로직 -->
+    <script>
+        // 1. 로그인
+        var id = "junamsu";
+        var pw = "helloworld";
+
+        var loginForm = document.getElementById("loginForm");
+        var loginResult = document.getElementById("login_result");
+
+        loginForm.onsubmit = function(e) {
+            e.preventDefault();
+
+            var inputId = document.getElementById("user_Id").value;
+            var inputPw = document.getElementById("user_Pw").value;
+
+            if (inputId === id && inputPw === pw) {
+                loginResult.textContent = "로그인 성공! 환영합니다.";
+                loginResult.style.color = "#27ae60";
+                alert("로그인 성공!");
+            } else {
+                loginResult.textContent = "로그인 실패: 정보를 확인하세요.";
+                loginResult.style.color = "#c0392b";
+                alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
+            }
+        };
+
+        // 2. 카운터
+        var number = 0;
+        var counter = document.getElementById("counter");
+        var countNumber = document.getElementById("count_number");
+        var resetCounter = document.getElementById("reset_counter");
+
+        counter.onclick = function() {
+            number++;
+            countNumber.textContent = number + "회 클릭";
+        };
+
+        resetCounter.onclick = function() {
+            number = 0;
+            countNumber.textContent = number + "회 클릭";
+        };
+
+        // 3. 색상 변경
+        var textMessage = document.getElementById("text_message");
+        var colorButton = document.getElementById("color_button");
+
+        colorButton.onclick = function() {
+            var r = Math.floor(Math.random() * 200);
+            var g = Math.floor(Math.random() * 200);
+            var b = Math.floor(Math.random() * 200);
+
+            textMessage.style.color = "rgb(" + r + "," + g + "," + b + ")";
+        };
+    </script>
+</body>
+</html>
