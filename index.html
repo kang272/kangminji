@@ -12,13 +12,12 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
+            font-family: '맑은 고딕', sans-serif;
             background-color: #f8f9fa;
             color: #333;
             line-height: 1.5;
         }
 
-        /* 1. 최상단 헤더 & GNB */
         header {
             background-color: #ffffff;
             border-bottom: 1px solid #e1e4e8;
@@ -65,17 +64,14 @@
             font-size: 20px;
             font-weight: 800;
             color: #222;
-            letter-spacing: -1px;
         }
 
         .logo-text span {
             font-size: 11px;
             color: #777;
             display: block;
-            margin-top: -3px;
         }
 
-        /* GNB 메인 메뉴 */
         .gnb-menu {
             display: flex;
             list-style: none;
@@ -87,15 +83,12 @@
             color: #333;
             font-weight: bold;
             font-size: 15px;
-            padding: 5px 0;
         }
 
         .gnb-menu a:hover {
             color: #0078d4;
-            border-bottom: 2px solid #0078d4;
         }
 
-        /* 2. 메인 컨테이너 (좌: 지도/검색, 우: 날씨현황) */
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -104,13 +97,11 @@
             gap: 20px;
         }
 
-        /* 메인 왼쪽 영역 */
         .left-panel {
             flex: 1.2;
             min-width: 0;
         }
 
-        /* 탭 버튼 */
         .tab-buttons {
             display: flex;
             gap: 4px;
@@ -132,7 +123,6 @@
             background-color: #0078d4;
         }
 
-        /* 검색창 */
         .search-box {
             display: flex;
             gap: 8px;
@@ -158,7 +148,6 @@
             cursor: pointer;
         }
 
-        /* 필터 태그버튼 */
         .filter-tags {
             display: flex;
             gap: 5px;
@@ -182,7 +171,6 @@
             border-color: #0078d4;
         }
 
-        /* 지도/이미지 박스 */
         .map-view-box {
             width: 100%;
             height: 480px;
@@ -190,7 +178,6 @@
             border: 1px solid #ccc;
             border-radius: 6px;
             overflow: hidden;
-            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -202,7 +189,6 @@
             object-fit: cover;
         }
 
-        /* 오른쪽 날씨 브리핑 패널 */
         .right-panel {
             flex: 1;
             background-color: #ffffff;
@@ -225,9 +211,6 @@
         .location-header h3 {
             font-size: 16px;
             color: #333;
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
         .update-time {
@@ -235,7 +218,6 @@
             color: #888;
         }
 
-        /* 대형 기온 표시 */
         .current-temp-area {
             text-align: center;
             padding: 15px 0 5px;
@@ -245,13 +227,11 @@
             font-size: 52px;
             font-weight: 800;
             color: #111;
-            letter-spacing: -2px;
         }
 
         .sensory-temp {
             font-size: 14px;
             color: #555;
-            margin-left: 5px;
         }
 
         .temp-diff {
@@ -261,7 +241,6 @@
             font-weight: 600;
         }
 
-        /* 습도/바람 정보 그리드 */
         .weather-sub-info {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -292,7 +271,6 @@
             margin-top: 2px;
         }
 
-        /* 미세먼지 원형 게이지 아이콘 영역 */
         .dust-circle-group {
             display: flex;
             justify-content: space-around;
@@ -330,7 +308,6 @@
             font-weight: bold;
         }
 
-        /* 예보 표 영역 */
         .forecast-section {
             max-width: 1200px;
             margin: 0 auto 20px;
@@ -340,377 +317,4 @@
         .forecast-card {
             background-color: #ffffff;
             border: 1px solid #dcdfe6;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .forecast-title {
-            font-size: 17px;
-            font-weight: bold;
-            color: #222;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .forecast-table-wrapper {
-            overflow-x: auto;
-        }
-
-        .forecast-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            text-align: center;
-            min-width: 800px;
-        }
-
-        .forecast-table th, .forecast-table td {
-            border: 1px solid #e2e8f0;
-            padding: 8px 4px;
-        }
-
-        .forecast-table th {
-            background-color: #f1f5f9;
-            color: #475569;
-            font-weight: 600;
-        }
-
-        .forecast-table .day-sun { color: #e11d48; }
-        .forecast-table .day-sat { color: #2563eb; }
-
-        .temp-min { color: #2563eb; font-weight: bold; }
-        .temp-max { color: #e11d48; font-weight: bold; }
-
-        .hourly-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 12px;
-            text-align: center;
-            min-width: 900px;
-        }
-
-        .hourly-table td {
-            border-bottom: 1px solid #eee;
-            padding: 10px 4px;
-        }
-
-        .hourly-header-row {
-            background-color: #f8fafc;
-            font-weight: bold;
-            color: #334155;
-        }
-
-        /* 하단 JS 기능 체험 섹션 */
-        .bottom-section {
-            max-width: 1200px;
-            margin: 0 auto 40px;
-            padding: 0 15px;
-        }
-
-        .js-card-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            background-color: #ffffff;
-            border: 1px solid #dcdfe6;
-            border-radius: 8px;
-            padding: 20px;
-        }
-
-        .js-card {
-            background-color: #f8f9fa;
-            border: 1px solid #e1e8ed;
-            border-radius: 6px;
-            padding: 15px;
-        }
-
-        .js-card h4 {
-            font-size: 15px;
-            color: #0078d4;
-            margin-bottom: 12px;
-            border-bottom: 2px solid #0078d4;
-            padding-bottom: 5px;
-        }
-
-        .js-card input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 8px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-
-        .js-card button {
-            width: 100%;
-            padding: 8px;
-            background-color: #0078d4;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .js-card button:hover {
-            background-color: #005a9e;
-        }
-
-        #login_result {
-            font-size: 12px;
-            margin-top: 8px;
-            color: #666;
-        }
-
-        @media (max-width: 850px) {
-            .container {
-                flex-direction: column;
-            }
-            .js-card-grid {
-                grid-template-columns: 1fr;
-            }
-            .gnb-menu {
-                display: none;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 1. 최상단 헤더 -->
-    <header>
-        <div class="top-slogan">"하늘을 친구처럼, 국민을 하늘처럼"</div>
-        <div class="header-main">
-            <div class="logo-area">
-                <div class="logo-mark">날</div>
-                <div class="logo-text">
-                    <h1>날씨누리</h1>
-                    <span>날씨정보시스템</span>
-                </div>
-            </div>
-            <ul class="gnb-menu">
-                <li><a href="#">특보·예보</a></li>
-                <li><a href="#">현재날씨</a></li>
-                <li><a href="#">위험기상</a></li>
-                <li><a href="#">수치일기도</a></li>
-                <li><a href="#">기후·기후변화</a></li>
-            </ul>
-        </div>
-    </header>
-
-    <!-- 2. 메인 컨테이너 -->
-    <div class="container">
-
-        <!-- 좌측: 지도 및 검색 영역 -->
-        <div class="left-panel">
-            <div class="tab-buttons">
-                <button class="tab-btn active">날씨</button>
-                <button class="tab-btn">전국</button>
-                <button class="tab-btn">태풍</button>
-            </div>
-
-            <div class="search-box">
-                <input type="text" class="search-input" value="경기도 오산시 오산동" placeholder="주요지역명으로 입력">
-                <button class="search-btn">검색</button>
-            </div>
-
-            <div class="filter-tags">
-                <button class="tag-btn">초단기강수예측</button>
-                <button class="tag-btn">특보</button>
-                <button class="tag-btn">어제</button>
-                <button class="tag-btn active">1시간관측</button>
-                <button class="tag-btn">현재날씨</button>
-                <button class="tag-btn">예보</button>
-            </div>
-
-            <!-- 날씨 이미지 / 지도 영역 -->
-            <div class="map-view-box">
-                <img src="스크린샷 2026-10-29 115220.png" alt="오산시 기상 현황 지도" onerror="this.style.display='none'; document.getElementById('alt-text').style.display='block';">
-                <div id="alt-text" style="display:none; text-align:center; color:#666;">
-                    <h3>📍 경기도 오산시 기상 지도</h3>
-                    <p style="font-size:13px; margin-top:5px;">[스크린샷 2026-10-29 115220.png] 이미지 파일이 준비되면 표시됩니다.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 우측: 실시간 날씨 브리핑 카드 -->
-        <div class="right-panel">
-            <div class="location-header">
-                <h3>📍 경기도 오산시 오산동</h3>
-                <span class="update-time">10.29.(목) 11:30 현재</span>
-            </div>
-
-            <div class="current-temp-area">
-                <div class="main-degree">9.5°C <span class="sensory-temp">체감(9.5°C) 🌡️</span></div>
-                <div class="temp-diff">어제보다 <strong>2°C 낮아요</strong></div>
-            </div>
-
-            <div class="weather-sub-info">
-                <div class="sub-item">
-                    <div class="sub-label">💧 습도</div>
-                    <div class="sub-value">55 %</div>
-                </div>
-                <div class="sub-item">
-                    <div class="sub-label">💨 바람</div>
-                    <div class="sub-value">동 1.3 m/s</div>
-                </div>
-                <div class="sub-item">
-                    <div class="sub-label">☔ 1시간강수량</div>
-                    <div class="sub-value">- mm</div>
-                </div>
-            </div>
-
-            <!-- 미세먼지 수치 원형 지표 -->
-            <div class="dust-circle-group">
-                <div class="dust-card">
-                    <div class="circle-gauge">12<br><span style="font-size:9px;">µg/m³</span></div>
-                    <div class="dust-name">초미세먼지</div>
-                    <div class="dust-status">좋음</div>
-                </div>
-                <div class="dust-card">
-                    <div class="circle-gauge" style="border-color:#f1c40f;">36<br><span style="font-size:9px;">µg/m³</span></div>
-                    <div class="dust-name">미세먼지</div>
-                    <div class="dust-status" style="color:#f39c12;">보통</div>
-                </div>
-                <div class="dust-card">
-                    <div class="circle-gauge">0.004<br><span style="font-size:9px;">ppm</span></div>
-                    <div class="dust-name">오존</div>
-                    <div class="dust-status">좋음</div>
-                </div>
-            </div>
-
-            <div style="font-size:12px; color:#777; text-align:right; margin-top:auto;">
-                정보출처: 기상청 / 한국환경공단
-            </div>
-        </div>
-
-    </div>
-
-    <!-- 3. 일별 및 시간별 예보 섹션 -->
-    <div class="forecast-section">
-        
-        <!-- 일별 예보 카드 -->
-        <div class="forecast-card">
-            <div class="forecast-title">
-                <span>📅 일별 예보</span>
-                <span style="font-size:12px; color:#666; font-weight:normal;">경기도 오산시 오산동 기준</span>
-            </div>
-            <div class="forecast-table-wrapper">
-                <table class="forecast-table">
-                    <thead>
-                        <tr>
-                            <th>날짜</th>
-                            <th>29일(목)<br><span style="color:#0078d4;">오늘</span></th>
-                            <th>30일(금)<br>내일</th>
-                            <th class="day-sat">31일(토)<br>모레</th>
-                            <th class="day-sun">1일(일)</th>
-                            <th>2일(월)</th>
-                            <th>3일(화)</th>
-                            <th>4일(수)</th>
-                            <th>5일(목)</th>
-                            <th class="day-sat">6일(금)</th>
-                            <th class="day-sat">7일(토)</th>
-                            <th class="day-sun">8일(일)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>시각</strong></td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>오전 / 오후</td>
-                            <td>종일</td>
-                            <td>종일</td>
-                            <td>종일</td>
-                        </tr>
-                        <tr>
-                            <td><strong>날씨</strong></td>
-                            <td>☁️ / ☔</td>
-                            <td>☁️ / ☀️</td>
-                            <td>☁️ / ☀️</td>
-                            <td>☁️ / ⛅</td>
-                            <td>☁️ / ☀️</td>
-                            <td>☀️ / ☀️</td>
-                            <td>☀️ / ☀️</td>
-                            <td>⛅ / ⛅</td>
-                            <td>☀️</td>
-                            <td>☀️</td>
-                            <td>☀️</td>
-                        </tr>
-                        <tr>
-                            <td><strong>기온</strong></td>
-                            <td><span class="temp-min">6℃</span> / <span class="temp-max">15℃</span></td>
-                            <td><span class="temp-min">10℃</span> / <span class="temp-max">18℃</span></td>
-                            <td><span class="temp-min">7℃</span> / <span class="temp-max">14℃</span></td>
-                            <td><span class="temp-min">5℃</span> / <span class="temp-max">13℃</span></td>
-                            <td><span class="temp-min">6℃</span> / <span class="temp-max">14℃</span></td>
-                            <td><span class="temp-min">3℃</span> / <span class="temp-max">13℃</span></td>
-                            <td><span class="temp-min">4℃</span> / <span class="temp-max">14℃</span></td>
-                            <td><span class="temp-min">5℃</span> / <span class="temp-max">16℃</span></td>
-                            <td><span class="temp-min">5℃</span> / <span class="temp-max">15℃</span></td>
-                            <td><span class="temp-min">6℃</span> / <span class="temp-max">14℃</span></td>
-                            <td><span class="temp-min">6℃</span> / <span class="temp-max">14℃</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>강수확률</strong></td>
-                            <td>- / 60%</td>
-                            <td>30% / 10%</td>
-                            <td>0% / 10%</td>
-                            <td>30% / 60%</td>
-                            <td>30% / 10%</td>
-                            <td>10% / 10%</td>
-                            <td>10% / 10%</td>
-                            <td>20% / 20%</td>
-                            <td>10%</td>
-                            <td>10%</td>
-                            <td>10%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- 시간별 예보 카드 -->
-        <div class="forecast-card">
-            <div class="forecast-title">
-                <span>🕒 시간별 예보</span>
-                <div style="display:flex; gap:5px;">
-                    <button class="tag-btn active">3시간 간격</button>
-                    <button class="tag-btn">1시간 간격</button>
-                </div>
-            </div>
-            <div class="forecast-table-wrapper">
-                <table class="hourly-table">
-                    <tbody>
-                        <tr class="hourly-header-row">
-                            <td><strong>시각</strong></td>
-                            <td>15시</td>
-                            <td>18시</td>
-                            <td>21시</td>
-                            <td>00시</td>
-                            <td>03시</td>
-                            <td>06시</td>
-                            <td>09시</td>
-                            <td>12시</td>
-                            <td>15시</td>
-                            <td>18시</td>
-                            <td>21시</td>
-                        </tr>
-                        <tr>
-                            <td><strong>날씨</strong></td>
-                            <td>☁️</td>
-                            <td>☔</td>
-                            <td>☔</td>
-                            <td>☔</td>
-                            <td>☁️</td>
-                            <td>☁️</td>
-                            <td>☁️</td>
-                            <td>⛅
+            border-radius:
