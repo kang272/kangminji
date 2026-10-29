@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전국 날씨 및 정보 웹사이트</title>
+    <title>전국 날씨 및 정보 포털</title>
 
     <style>
         * {
@@ -13,35 +13,41 @@
         }
 
         body {
-            font-family: '맑은 고딕', sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-            color: #333;
+            font-family: 'Pretendard', '맑은 고딕', sans-serif;
+            background-color: #f0f2f5;
+            padding: 30px 20px;
+            color: #2c3e50;
         }
 
-        /* 전체 레이아웃 */
+        /* 전체 레이아웃 (1200px 대형 대시보드 스타일) */
         .container {
             display: flex;
-            gap: 15px;
+            gap: 25px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         /* 사이드메뉴 */
         #sidebar {
-            width: 200px;
-            min-height: 550px;
+            width: 250px;
+            min-height: 600px;
             flex-shrink: 0;
-            background-color: #d8d8d8;
-            border: 2px solid #a0a0a0;
-            padding: 15px 10px;
+            background-color: #ffffff;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 20px 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
         }
 
         #sidebar h2 {
-            font-size: 16px;
-            text-align: center;
-            margin-bottom: 15px;
+            font-size: 18px;
+            text-align: left;
+            margin-bottom: 20px;
+            padding-left: 5px;
+            color: #1a252f;
+            border-bottom: 2px solid #34495e;
+            padding-bottom: 10px;
         }
 
         .menu-ul {
@@ -49,336 +55,81 @@
         }
 
         .menu-ul li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .menu-ul a {
             display: block;
-            padding: 12px 4px;
-            background-color: #4a4a4a;
-            color: white;
+            padding: 12px 15px;
+            background-color: #f8f9fa;
+            color: #333;
             text-decoration: none;
-            text-align: center;
-            font-weight: bold;
-            font-size: 13px;
-            border: 1px solid #333;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            transition: all 0.2s ease;
         }
 
         .menu-ul a:hover {
-            background-color: #666;
+            background-color: #34495e;
+            color: #ffffff;
+            border-color: #34495e;
         }
 
         .menu-ol-title {
-            font-size: 12px;
+            font-size: 13px;
             font-weight: bold;
-            margin-top: 20px;
-            margin-bottom: 8px;
+            margin-top: 30px;
+            margin-bottom: 12px;
+            color: #7f8c8d;
+            padding-left: 5px;
         }
 
         .menu-ol {
             padding-left: 20px;
-            font-size: 13px;
+            font-size: 14px;
+            color: #555;
         }
 
         .menu-ol li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
-        /* 오른쪽 내용 */
+        /* 오른쪽 메인 콘텐츠 영역 */
         #content-area {
             flex: 1;
             min-width: 0;
             display: flex;
             flex-direction: column;
+            gap: 20px;
         }
 
+        /* 상단 지역 헤더 박스 */
         .top-main-box {
             width: 100%;
-            background-color: #d8d8d8;
-            border: 2px solid #a0a0a0;
-            border-radius: 15px;
-            padding: 15px 20px;
-            margin-bottom: 15px;
+            background-color: #ffffff;
+            border: 1px solid #e1e8ed;
+            border-radius: 12px;
+            padding: 20px 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
         }
 
         .top-main-box h1 {
-            font-size: 18px;
-            margin-bottom: 8px;
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .top-main-box p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.5;
         }
 
         .my-region-text {
             display: inline-block;
             font-weight: bold;
-            color: #333;
-            background-color: white;
-            border: 1px solid #333;
-            padding: 2px 6px;
-        }
-
-        /* 본문 */
-        .main-body-box {
-            position: relative;
-            width: 100%;
-            background-color: #a8a8a8;
-            border: 2px solid #787878;
-            padding: 15px;
-        }
-
-        .weather-frame {
-            background-color: #606060;
-            border: 5px solid #404040;
-            padding: 12px;
-            margin-bottom: 15px;
-            color: white;
-        }
-
-        .weather-frame h3 {
-            font-size: 15px;
-            margin-bottom: 10px;
-        }
-
-        .weather-content {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        /* 💡 이미지 크기 확대 부분 */
-        .weather-img {
-            width: 280px;
-            height: 160px;
-            object-fit: contain;
-            background-color: #111;
-            border: 2px solid white;
-        }
-
-        .weather-table {
-            border-collapse: collapse;
-            background-color: white;
-            color: #333;
-            font-size: 12px;
-            flex: 1;
-        }
-
-        .weather-table th,
-        .weather-table td {
-            border: 1px solid #888;
-            padding: 7px 10px;
-            text-align: center;
-        }
-
-        .weather-table th {
-            background-color: #e0e0e0;
-        }
-
-        /* 날씨 안내 문구 */
-        .article-lines {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .article-lines p {
-            background-color: #111;
-            color: white;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            font-size: 12px;
-        }
-
-        /* JavaScript 체험 영역 */
-        .js-practice {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 15px;
-            width: 100%;
-            padding: 20px;
-            margin-top: 20px;
-            background-color: #eeeeee;
-            border: 1px solid #888;
-            border-radius: 8px;
-        }
-
-        .js-practice > .section-title {
-            grid-column: 1 / -1;
-            font-size: 20px;
-            margin: 0;
-            color: #333;
-        }
-
-        .js-card {
-            min-width: 0;
-            padding: 15px;
-            background-color: white;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-            color: #333;
-        }
-
-        .js-card h3 {
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-
-        .js-card form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .js-card input {
-            width: 100%;
-            min-width: 0;
-            padding: 10px;
-            border: 1px solid #bbb;
-            border-radius: 4px;
-        }
-
-        .js-card button {
-            padding: 10px 14px;
-            border: 1px solid #333;
-            border-radius: 20px;
-            background-color: #444;
-            color: white;
-            cursor: pointer;
-        }
-
-        .js-card button:hover {
-            background-color: #666;
-        }
-
-        #text_message {
-            line-height: 1.8;
-            overflow-wrap: anywhere;
-            cursor: pointer;
-        }
-
-        #count_number {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        #login_result {
-            margin-top: 10px;
-            font-size: 13px;
-            overflow-wrap: anywhere;
-        }
-
-        .page-curl {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 0;
-            border-bottom: 30px solid #f5f5f5;
-            border-left: 30px solid #666;
-        }
-
-        /* 반응형 */
-        @media (max-width: 850px) {
-            .js-practice {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                flex-direction: column;
-            }
-
-            #sidebar {
-                width: 100%;
-                min-height: auto;
-            }
-
-            #content-area {
-                width: 100%;
-            }
-
-            .weather-img {
-                width: 100%;
-                height: auto;
-            }
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <!-- 사이드메뉴 -->
-    <aside id="sidebar">
-        <h2>2. 사이드메뉴</h2>
-
-        <ul class="menu-ul">
-            <li><a href="#weather">실시간 날씨</a></li>
-            <li><a href="#forecast">주간 일기예보</a></li>
-            <li><a href="#dust">미세먼지 정보</a></li>
-            <li><a href="#notice">태풍/기상특보</a></li>
-        </ul>
-
-        <p class="menu-ol-title">[인기 검색 지역]</p>
-        <ol class="menu-ol">
-            <li>경기도 오산시</li>
-            <li>서울특별시</li>
-            <li>부산광역시</li>
-            <li>제주특별자치도</li>
-        </ol>
-    </aside>
-
-    <!-- 오른쪽 영역 -->
-    <main id="content-area">
-
-        <!-- 메인 -->
-        <header class="top-main-box">
-            <h1>1. 메인</h1>
-            <p>
-                4. 내 지역:
-                <span class="my-region-text">경기도 오산시</span>
-            </p>
-            <p>오늘의 날씨 상태는 대체로 맑고 포근합니다.</p>
-        </header>
-
-        <!-- 본문 -->
-        <div class="main-body-box">
-
-            <!-- 전국 날씨 -->
-            <section class="weather-frame" id="weather">
-                <h3>5. 전국날씨 구성</h3>
-
-                <div class="weather-content">
-                    <img
-                        src="다운로드.jpg"
-                        alt="전국 날씨 그림"
-                        class="weather-img"
-                    >
-
-                    <table class="weather-table">
-                        <tr>
-                            <th>지역</th>
-                            <th>날씨</th>
-                            <th>기온</th>
-                        </tr>
-                        <tr>
-                            <td>오산시</td>
-                            <td>맑음</td>
-                            <td>21℃</td>
-                        </tr>
-                        <tr>
-                            <td>서울</td>
-                            <td>구름조금</td>
-                            <td>20℃</td>
-                        </tr>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 날씨 안내 -->
-            <section class="article-lines">
-                <p
+            color: #2980b9;
+            background-color: #eb
