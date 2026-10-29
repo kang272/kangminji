@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>전국 날씨 및 정보 포털</title>
-
     <style>
         * {
             box-sizing: border-box;
@@ -171,9 +170,378 @@
             width: 100%;
         }
 
-        /* 시원하게 확대된 오산시 기상청 날씨 그래픽 커스텀 Box */
+        /* 시원하게 확대된 오산시 날씨 그래픽 대시보드 */
         .weather-img-box {
             width: 100%;
             max-width: 800px;
-            height: 380px;
-            background: linear-gradient
+            min-height: 350px;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            border-radius: 10px;
+            border: 2px solid #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .weather-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-size: 22px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 12px;
+        }
+
+        .weather-body {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            color: white;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .weather-main-temp {
+            font-size: 52px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .weather-info-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .weather-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.9);
+            background: rgba(0,0,0,0.15);
+            padding: 10px 15px;
+            border-radius: 6px;
+        }
+
+        /* 날씨 브리핑 텍스트 라인 */
+        .article-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+        }
+
+        .article-lines p {
+            background-color: #f8f9fa;
+            color: #333;
+            border-left: 4px solid #34495e;
+            padding: 12px 15px;
+            font-size: 14px;
+            border-radius: 0 6px 6px 0;
+            font-weight: 500;
+        }
+
+        /* JavaScript 체험 영역 */
+        .js-practice {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 15px;
+            width: 100%;
+            padding: 20px;
+            margin-top: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+        }
+
+        .js-practice > .section-title {
+            grid-column: 1 / -1;
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .js-card {
+            min-width: 0;
+            padding: 18px;
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+        }
+
+        .js-card h3 {
+            font-size: 15px;
+            margin-bottom: 12px;
+            color: #34495e;
+        }
+
+        .js-card form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .js-card input {
+            width: 100%;
+            padding: 9px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .js-card button {
+            padding: 10px 14px;
+            border: none;
+            border-radius: 6px;
+            background-color: #34495e;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .js-card button:hover {
+            background-color: #1a252f;
+        }
+
+        #text_message {
+            line-height: 1.6;
+            font-size: 13px;
+            margin-bottom: 10px;
+            color: #495057;
+        }
+
+        #count_number {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            color: #2c3e50;
+        }
+
+        #login_result {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .page-curl {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-bottom: 25px solid #f0f2f5;
+            border-left: 25px solid #bdc3c7;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            #sidebar {
+                width: 100%;
+                min-height: auto;
+            }
+
+            .js-practice {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 사이드메뉴 -->
+    <aside id="sidebar">
+        <h2>메뉴 목록</h2>
+
+        <ul class="menu-ul">
+            <li><a href="#weather">실시간 날씨 지도</a></li>
+            <li><a href="#forecast">지역 예보 브리핑</a></li>
+            <li><a href="#dust">미세먼지 정보</a></li>
+            <li><a href="#notice">기상 특보 안내</a></li>
+        </ul>
+
+        <p class="menu-ol-title">[주요 모니터링 지역]</p>
+        <ol class="menu-ol">
+            <li>경기도 오산시</li>
+            <li>서울특별시</li>
+            <li>부산광역시</li>
+            <li>제주특별자치도</li>
+        </ol>
+    </aside>
+
+    <!-- 오른쪽 영역 -->
+    <main id="content-area">
+
+        <!-- 메인 헤더 -->
+        <header class="top-main-box">
+            <h1>전국 대시보드</h1>
+            <p>
+                현재 설정 지역: <span class="my-region-text">경기도 오산시</span>
+                오산시 및 전국 기상 상황 모니터링 화면입니다.
+            </p>
+        </header>
+
+        <!-- 본문 영역 -->
+        <div class="main-body-box">
+
+            <!-- 전국 날씨 오산시 그래픽 영역 -->
+            <section class="weather-frame" id="weather">
+                <h3>오산시 기상청 현황 예보</h3>
+
+                <div class="weather-content">
+                    <div class="weather-img-box">
+                        <div class="weather-header">
+                            <span>오산시 오늘 날씨</span>
+                            <span style="font-size:14px; background:rgba(0,0,0,0.2); padding:4px 10px; border-radius:15px;">기상청 제공</span>
+                        </div>
+                        <div class="weather-body">
+                            <div class="weather-main-temp">
+                                ☀️ <span>28℃</span>
+                            </div>
+                            <div class="weather-info-card">
+                                <p><strong>최고 기온:</strong> 29℃ / <strong>최저:</strong> 18℃</p>
+                                <p><strong>강수확률:</strong> 10% | <strong>습도:</strong> 55%</p>
+                                <p><strong>미세먼지:</strong> <span style="color:#55efc4; font-weight:bold;">좋음</span></p>
+                                <p style="margin-top:5px; font-weight:bold; color:#ffeaa7;">대체로 맑고 포근한 날씨</p>
+                            </div>
+                        </div>
+                        <div class="weather-footer">
+                            <span>오산시 오산동 주요 모니터링 구역</span>
+                            <span>Osan-si Weather Center</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 날씨 브리핑 -->
+            <section class="article-lines">
+                <p id="forecast">
+                    ■ 경기도 오산시 오산동 기준 현재 기온 28℃, 습도 55%입니다.
+                </p>
+                <p id="dust">
+                    ■ 미세먼지 농도는 '좋음' 수준으로 야외 활동에 매우 적합합니다.
+                </p>
+                <p id="notice">
+                    ■ 오후 한때 구름이 많아질 예정이니 참고하시기 바랍니다.
+                </p>
+            </section>
+
+            <!-- JavaScript 실습 영역 -->
+            <section class="js-practice">
+
+                <h2 class="section-title">💻 사용자 체험 모듈</h2>
+
+                <!-- 1. 로그인 -->
+                <div class="js-card">
+                    <h3>1. 사용자 인증</h3>
+
+                    <form id="loginForm">
+                        <input type="text" id="user_Id" placeholder="아이디" required>
+                        <input type="password" id="user_Pw" placeholder="비밀번호" required>
+                        <button type="submit">로그인</button>
+                    </form>
+
+                    <p id="login_result">계정 정보를 입력하세요.</p>
+                </div>
+
+                <!-- 2. 글씨 색 바꾸기 -->
+                <div class="js-card">
+                    <h3>2. 테마 텍스트 변경</h3>
+
+                    <p id="text_message">
+                        버튼을 클릭하면 강조 문구 색상이 변경됩니다.
+                    </p>
+
+                    <button type="button" id="color_button">색상 변경하기</button>
+                </div>
+
+                <!-- 3. 카운터 -->
+                <div class="js-card">
+                    <h3>3. 조회 카운터</h3>
+
+                    <p id="count_number">0회 조회</p>
+
+                    <div style="display: flex; gap: 5px;">
+                        <button type="button" id="counter" style="flex:1;">증가 +</button>
+                        <button type="button" id="reset_counter" style="background-color: #7f8c8d;">리셋</button>
+                    </div>
+                </div>
+
+            </section>
+
+            <div class="page-curl"></div>
+        </div>
+    </main>
+</div>
+
+<script>
+    var id = "junamsu";
+    var pw = "helloworld";
+
+    var loginForm = document.getElementById("loginForm");
+    var loginResult = document.getElementById("login_result");
+
+    loginForm.onsubmit = function(e) {
+        e.preventDefault();
+
+        var inputId = document.getElementById("user_Id").value;
+        var inputPw = document.getElementById("user_Pw").value;
+
+        if (inputId === id && inputPw === pw) {
+            loginResult.textContent = "인증 성공! 환영합니다.";
+            loginResult.style.color = "#27ae60";
+            alert("로그인에 성공했습니다.");
+        } else {
+            loginResult.textContent = "인증 실패: 정보를 확인하세요.";
+            loginResult.style.color = "#c0392b";
+            alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
+        }
+    };
+
+    var number = 0;
+
+    var counter = document.getElementById("counter");
+    var countNumber = document.getElementById("count_number");
+    var resetCounter = document.getElementById("reset_counter");
+
+    counter.onclick = function() {
+        number++;
+        countNumber.textContent = number + "회 조회";
+    };
+
+    resetCounter.onclick = function() {
+        number = 0;
+        countNumber.textContent = number + "회 조회";
+    };
+
+    var textMessage = document.getElementById("text_message");
+    var colorButton = document.getElementById("color_button");
+
+    colorButton.onclick = function() {
+        var r = Math.floor(Math.random() * 200);
+        var g = Math.floor(Math.random() * 200);
+        var b = Math.floor(Math.random() * 200);
+
+        textMessage.style.color = "rgb(" + r + "," + g + "," + b + ")";
+    };
+</script>
+
+</body>
+</html>
