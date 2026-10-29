@@ -140,14 +140,16 @@
         .weather-content {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
             flex-wrap: wrap;
         }
 
+        /* 💡 이미지 크기 확대 부분 */
         .weather-img {
-            width: 130px;
-            height: 130px;
-            object-fit: cover;
+            width: 280px;
+            height: 160px;
+            object-fit: contain;
+            background-color: #111;
             border: 2px solid white;
         }
 
@@ -156,6 +158,7 @@
             background-color: white;
             color: #333;
             font-size: 12px;
+            flex: 1;
         }
 
         .weather-table th,
@@ -272,7 +275,7 @@
             border-left: 30px solid #666;
         }
 
-        /* 작은 화면 반응형 */
+        /* 반응형 */
         @media (max-width: 850px) {
             .js-practice {
                 grid-template-columns: 1fr;
@@ -295,6 +298,11 @@
 
             #content-area {
                 width: 100%;
+            }
+
+            .weather-img {
+                width: 100%;
+                height: auto;
             }
         }
     </style>
@@ -345,9 +353,8 @@
                 <h3>5. 전국날씨 구성</h3>
 
                 <div class="weather-content">
-                    <!-- 💡 업로드한 이미지 '다운로드.jpg' 연결 (GitHub 저장소 파일명과 같아야 함) -->
                     <img
-                        src="Gemini_Generated_Image_x90kvfx90kvfx90k.png"
+                        src="다운로드.jpg"
                         alt="전국 날씨 그림"
                         class="weather-img"
                     >
@@ -374,145 +381,4 @@
 
             <!-- 날씨 안내 -->
             <section class="article-lines">
-                <p id="forecast">
-                    ■ 경기도 오산시 오산동 기준 현재 기온 21℃, 습도 45%입니다.
-                </p>
-                <p id="dust">
-                    ■ 미세먼지 농도는 '보통' 수준으로 야외 활동에 적합합니다.
-                </p>
-                <p id="notice">
-                    ■ 오후부터 구름이 많아질 예정이니 참고하시기 바랍니다.
-                </p>
-                <p>
-                    ■ 자세한 동네예보는 사이드메뉴의 상세 카테고리를 이용하세요.
-                </p>
-            </section>
-
-            <!-- JavaScript 실습 -->
-            <section class="js-practice">
-
-                <h2 class="section-title">💻 JavaScript 체험</h2>
-
-                <!-- 1. 로그인 -->
-                <div class="js-card">
-                    <h3>1. 로그인</h3>
-
-                    <form id="loginForm">
-                        <input
-                            type="text"
-                            id="user_Id"
-                            placeholder="아이디"
-                            required
-                        >
-
-                        <input
-                            type="password"
-                            id="user_Pw"
-                            placeholder="비밀번호"
-                            required
-                        >
-
-                        <button type="submit">로그인</button>
-                    </form>
-
-                    <p id="login_result">
-                        아이디와 비밀번호를 입력하세요.
-                    </p>
-                </div>
-
-                <!-- 2. 글씨 색 바꾸기 -->
-                <div class="js-card">
-                    <h3>2. 글씨 색 바꾸기</h3>
-
-                    <p id="text_message">
-                        오늘의 날씨를 확인하세요!
-                        버튼을 누르면 글씨 색이 바뀝니다.
-                    </p>
-
-                    <button type="button" id="color_button">
-                        글씨 색 바꾸기
-                    </button>
-                </div>
-
-                <!-- 3. 카운터 -->
-                <div class="js-card">
-                    <h3>3. 카운터</h3>
-
-                    <p id="count_number">0번 클릭</p>
-
-                    <button type="button" id="counter">
-                        클릭하기 +
-                    </button>
-
-                    <button type="button" id="reset_counter">
-                        초기화
-                    </button>
-                </div>
-
-            </section>
-
-            <div class="page-curl"></div>
-        </div>
-    </main>
-</div>
-
-<!-- JavaScript -->
-<script>
-    // 1. 로그인
-    const id = "junamsu";
-    const pw = "helloworld";
-
-    const loginForm = document.querySelector("#loginForm");
-    const loginResult = document.querySelector("#login_result");
-
-    loginForm.onsubmit = function(e) {
-        e.preventDefault();
-
-        const inputId = document.querySelector("#user_Id").value;
-        const inputPw = document.querySelector("#user_Pw").value;
-
-        if (inputId === id && inputPw === pw) {
-            loginResult.textContent = "로그인 성공! 환영합니다.";
-            loginResult.style.color = "green";
-            alert("로그인 성공!");
-        } else {
-            loginResult.textContent =
-                "로그인 실패: 아이디 또는 비밀번호가 틀렸습니다.";
-            loginResult.style.color = "red";
-            alert("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");
-        }
-    };
-
-    // 2. 카운터
-    let number = 0;
-
-    const counter = document.querySelector("#counter");
-    const countNumber = document.querySelector("#count_number");
-    const resetCounter = document.querySelector("#reset_counter");
-
-    counter.onclick = function() {
-        number++;
-        countNumber.textContent = number + "번 클릭";
-    };
-
-    resetCounter.onclick = function() {
-        number = 0;
-        countNumber.textContent = number + "번 클릭";
-    };
-
-    // 3. 글씨 색 바꾸기
-    const textMessage = document.querySelector("#text_message");
-    const colorButton = document.querySelector("#color_button");
-
-    colorButton.onclick = function() {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-
-        textMessage.style.color =
-            "rgb(" + r + "," + g + "," + b + ")";
-    };
-</script>
-
-</body>
-</html>
+                <p
